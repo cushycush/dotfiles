@@ -1,0 +1,6 @@
+2026/02/18-20:01:21.881 1147 Creating DB /home/cush/.config/chromium/Default/IndexedDB/https_grok.com_0.indexeddb.leveldb since it was missing.
+2026/02/18-20:01:21.887 1147 Reusing MANIFEST /home/cush/.config/chromium/Default/IndexedDB/https_grok.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/02/18-20:01:24.205 1148 Level-0 table #5: started
+2026/02/18-20:01:24.207 1148 Level-0 table #5: 1254 bytes OK
+2026/02/18-20:01:24.211 1148 Delete type=0 #3
+2026/02/18-20:01:24.211 1148 Manual compaction at level-0 from (begin) .. (end); will stop at (end)

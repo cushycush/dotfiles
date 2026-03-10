@@ -1,0 +1,15 @@
+{
+	"autoupdate": true,
+	"theme": "system",
+	"windows": [
+		{
+			"position": {
+				"x": 0,
+				"y": 0,
+				"width": 1581,
+				"height": 1300
+			},
+			"url": "https://app.hey.com/"
+		}
+	]
+}

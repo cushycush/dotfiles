@@ -1,0 +1,15 @@
+2026/03/03-16:13:49.539 a01 Reusing MANIFEST /home/cush/.config/chromium/Default/IndexedDB/https_www.reddit.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/03/03-16:13:49.539 a01 Recovering log #7
+2026/03/03-16:13:49.539 a01 Reusing old log /home/cush/.config/chromium/Default/IndexedDB/https_www.reddit.com_0.indexeddb.leveldb/000007.log 
+2026/03/03-16:15:23.385 a02 Level-0 table #12: started
+2026/03/03-16:15:23.388 a02 Level-0 table #12: 67543 bytes OK
+2026/03/03-16:15:23.392 a02 Delete type=0 #7
+2026/03/03-16:15:23.392 a02 Manual compaction at level-0 from (begin) .. (end); will stop at (end)
+2026/03/03-16:15:23.392 a02 Manual compaction at level-1 from (begin) .. (end); will stop at '\x00\x02\x03\x02\x04\x01\x01\x01\x00-' @ 582 : 1
+2026/03/03-16:15:23.392 a02 Compacting 1@1 + 1@2 files
+2026/03/03-16:15:23.394 a02 Generated table #13@1: 102 keys, 22226 bytes
+2026/03/03-16:15:23.394 a02 Compacted 1@1 + 1@2 files => 22226 bytes
+2026/03/03-16:15:23.398 a02 compacted to: files[ 0 0 1 0 0 0 0 ]
+2026/03/03-16:15:23.398 a02 Delete type=2 #9
+2026/03/03-16:15:23.398 a02 Delete type=2 #12
+2026/03/03-16:15:23.398 a02 Manual compaction at level-1 from '\x00\x02\x03\x02\x04\x01\x01\x01\x00-' @ 582 : 1 .. (end); will stop at (end)

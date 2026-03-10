@@ -1,0 +1,45 @@
+;; ================================================================================================
+;; TITLE: KMonad Config
+;; ABOUT: Configuration file to modify the Nuphy Air75 v1
+;; ================================================================================================
+
+;; Config
+(defcfg
+  input (device-file "/dev/input/by-id/usb-BY_Tech_Air75-event-kbd")
+  output (uinput-sink "KMonad output")
+fallthrough true)
+
+;; Air75 v1 source
+(defsrc
+  esc  brdn brup lp   mctl bldn blup prev pp   next mute vold volu print ins del
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc      pgup
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \         pgdn
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret            home
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft      up        end
+  lctl lmet lalt                spc                 ralt rmet rctl left down rght
+)
+
+;; Button definitions
+(defalias 
+  esc (tap-hold 200 esc lctrl)
+  vim (layer-toggle vim)
+)
+
+;; Layers
+(deflayer default
+  caps _    _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _         _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _         _
+  @esc _    _    _    _    _    _    _    _    _    _    _    _              _
+  _    _    _    _    _    _    _    _    _    _    _    _         _         _
+  _    lalt lmet                     _                   @vim _    _    _    _    _   
+)
+
+(deflayer vim
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _         _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _         _
+  _    _    _    _    _    _    left down up   rght _    _    _              _
+  _    _    _    _    _    _    _    _    _    _    _    _         _         _
+  _    _    _                   _                   _    _    _    _    _    _   
+)

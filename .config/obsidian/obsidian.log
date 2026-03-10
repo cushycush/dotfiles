@@ -1,0 +1,8 @@
+2026-02-19 03:02:33 Loading main app package /usr/lib/obsidian/obsidian.asar
+2026-02-19 03:02:33 Checking for update using Github
+2026-02-19 03:02:34 Success.
+2026-02-19 03:02:34 Latest version is 1.11.7
+2026-02-19 03:02:34 Downloading update from https://github.com/obsidianmd/obsidian-releases/releases/download/v1.11.7/obsidian-1.11.7.asar.gz
+2026-02-19 03:02:37 Verifying hash & signature. Size= 8773752
+2026-02-19 03:02:37 Saving file
+2026-02-19 03:02:37 Update complete.

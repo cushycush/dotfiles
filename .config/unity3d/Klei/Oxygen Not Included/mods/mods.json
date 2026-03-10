@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "mods": [
+    {
+      "label": {
+        "distribution_platform": 1,
+        "id": "2018291283",
+        "title": "Mod Updater",
+        "version": 1719616041
+      },
+      "status": 1,
+      "enabled": false,
+      "enabledForDlc": null,
+      "crash_count": 0,
+      "reinstall_path": null,
+      "staticID": "PeterHan.ModUpdateDate"
+    },
+    {
+      "label": {
+        "distribution_platform": 1,
+        "id": "1843965353",
+        "title": "Mod Manager // by @Ony 👾",
+        "version": 1752052696
+      },
+      "status": 1,
+      "enabled": false,
+      "enabledForDlc": null,
+      "crash_count": 0,
+      "reinstall_path": null,
+      "staticID": "ModManager"
+    }
+  ]
+}

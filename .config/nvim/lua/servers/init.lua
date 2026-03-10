@@ -1,0 +1,16 @@
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
+local lspconfig = require("lspconfig")
+local on_attach = require("utils.lsp").on_attach
+
+--require("servers.efm")(lspconfig, on_attach, capabilities)
+require("servers.lua_ls")(lspconfig, on_attach, capabilities)
+require("servers.pyright")(lspconfig, on_attach, capabilities)
+require("servers.ts_ls")(lspconfig, on_attach, capabilities)
+require("servers.gopls")(lspconfig, on_attach, capabilities)
+require("servers.bashls")(lspconfig, on_attach, capabilities)
+require("servers.dockerls")(lspconfig, on_attach, capabilities)
+require("servers.clangd")(lspconfig, on_attach, capabilities)
+require("servers.emmet_ls")(lspconfig, on_attach, capabilities)
+require("servers.jsonls")(lspconfig, on_attach, capabilities)
+require("servers.tailwindcss")(lspconfig, on_attach, capabilities)
+require("servers.yamlls")(lspconfig, on_attach, capabilities)

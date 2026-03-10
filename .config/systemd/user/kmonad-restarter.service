@@ -1,0 +1,6 @@
+[Unit]
+Description=Restarts KMonad
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/systemctl --user restart kmonad.service

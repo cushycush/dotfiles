@@ -1,0 +1,9 @@
+[Unit]
+Description=Watch KMonad config for changes
+
+[Path]
+PathModified=%h/.config/kmonad/config.kbd
+Unit=kmonad-restarter.service
+
+[Install]
+WantedBy=default.target
