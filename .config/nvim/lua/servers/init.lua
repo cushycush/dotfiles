@@ -1,16 +1,30 @@
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
-local lspconfig = require("lspconfig")
-local on_attach = require("utils.lsp").on_attach
 
---require("servers.efm")(lspconfig, on_attach, capabilities)
-require("servers.lua_ls")(lspconfig, on_attach, capabilities)
-require("servers.pyright")(lspconfig, on_attach, capabilities)
-require("servers.ts_ls")(lspconfig, on_attach, capabilities)
-require("servers.gopls")(lspconfig, on_attach, capabilities)
-require("servers.bashls")(lspconfig, on_attach, capabilities)
-require("servers.dockerls")(lspconfig, on_attach, capabilities)
-require("servers.clangd")(lspconfig, on_attach, capabilities)
-require("servers.emmet_ls")(lspconfig, on_attach, capabilities)
-require("servers.jsonls")(lspconfig, on_attach, capabilities)
-require("servers.tailwindcss")(lspconfig, on_attach, capabilities)
-require("servers.yamlls")(lspconfig, on_attach, capabilities)
+require("servers.lua_ls")(capabilities)
+require("servers.pyright")(capabilities)
+require("servers.ts_ls")(capabilities)
+require("servers.gopls")(capabilities)
+require("servers.bashls")(capabilities)
+require("servers.dockerls")(capabilities)
+require("servers.clangd")(capabilities)
+require("servers.emmet_ls")(capabilities)
+require("servers.jsonls")(capabilities)
+require("servers.tailwindcss")(capabilities)
+require("servers.yamlls")(capabilities)
+
+require("servers.efm")(capabilities)
+
+vim.lsp.enable({
+  "lua_ls",
+  "pyright",
+  "gopls",
+  "jsonls",
+  "ts_ls",
+  "bashls",
+  "clangd",
+  "dockerls",
+  "emmet_ls",
+  "yamlls",
+  "tailwindcss",
+  "efm",
+})

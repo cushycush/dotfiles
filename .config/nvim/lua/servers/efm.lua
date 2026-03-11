@@ -1,4 +1,6 @@
-return function(lspconfig, on_attach, capabilities)
+--- @param capabilities table LSP client capabilities (typically from nvim-cmp or similar)
+--- @return nil
+return function(capabilities)
 	local luacheck = require("efmls-configs.linters.luacheck")
 	local stylua = require("efmls-configs.formatters.stylua")
 	local flake8 = require("efmls-configs.linters.flake8")
@@ -6,16 +8,15 @@ return function(lspconfig, on_attach, capabilities)
 	local eslint_d = require("efmls-configs.linters.eslint_d")
 	local prettier_d = require("efmls-configs.formatters.prettier_d")
 	local fixjson = require("efmls-configs.formatters.fixjson")
-	local revive = require("efmls-configs.linters.revive")
+	local go_revive = require("efmls-configs.linters.go_revive")
 	local gofumpt = require("efmls-configs.formatters.gofumpt")
 	local shellcheck = require("efmls-configs.linters.shellcheck")
 	local shfmt = require("efmls-configs.formatters.shfmt")
 	local hadolint = require("efmls-configs.linters.hadolint")
 	local cpplint = require("efmls-configs.linters.cpplint")
-	local clangd_format = require("efmls-configs.formatters.clangd_format")
+	local clang_format = require("efmls-configs.formatters.clang_format")
 
-	lspconfig.efm.setup({
-		on_attach = on_attach,
+	vim.lsp.config("efm", {
 		capabilities = capabilities,
 		filetypes = {
 			"c",
@@ -32,7 +33,6 @@ return function(lspconfig, on_attach, capabilities)
 			"markdown",
 			"python",
 			"sh",
-			"solidity",
 			"svelte",
 			"typescript",
 			"typescriptreact",
@@ -48,11 +48,11 @@ return function(lspconfig, on_attach, capabilities)
 		},
 		settings = {
 			languages = {
-				c = { cpplint, clangd_format },
-				cpp = { cpplint, clangd_format },
+				c = { cpplint, clang_format },
+				cpp = { cpplint, clang_format },
 				css = { prettier_d },
 				docker = { hadolint, prettier_d },
-				go = { revive, gofumpt },
+				go = { go_revive, gofumpt },
 				html = { prettier_d },
 				javascript = { eslint_d, prettier_d },
 				javascriptreact = { eslint_d, prettier_d },

@@ -1,8 +1,14 @@
-return function(lspconfig, on_attach, capabilities)
-	lspconfig.ts_ls.setup({
-		on_attach = on_attach,
+--- @param capabilities table LSP client capabilities (typically from nvim-cmp or similar)
+--- @return nil
+return function(capabilities)
+	vim.lsp.config("ts_ls", {
 		capabilities = capabilities,
-		filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+		filetypes = {
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact",
+    },
 		settings = {
 			typescript = {
 				indentStyle = "space",

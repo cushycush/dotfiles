@@ -1,7 +1,8 @@
-return function(lspconfig, on_attach, capabilities)
-	lspconfig.dockerls.setup({
-		on_attach = on_attach,
+--- @param capabilities table LSP client capabilities (typically from nvim-cmp or similar)
+--- @return nil
+return function(capabilities)
+	vim.lsp.config("dockerls", {
 		capabilities = capabilities,
-		filetypes = { "docker" },
+		filetypes = { "dockerfile" },
 	})
 end

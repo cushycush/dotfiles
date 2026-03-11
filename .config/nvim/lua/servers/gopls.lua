@@ -1,6 +1,7 @@
-return function(lspconfig, on_attach, capabilities)
-	lspconfig.gopls.setup({
-		on_attach = on_attach,
+--- @param capabilities table LSP client capabilities (typically from nvim-cmp or similar)
+--- @return nil
+return function(capabilities)
+	vim.lsp.config("gopls", {
 		capabilities = capabilities,
 		filetypes = { "go" },
 	})

@@ -1,7 +1,8 @@
-return function(lspconfig, on_attach, capabilities)
-	lspconfig.bashls.setup({
-		on_attach = on_attach,
+--- @param capabilities table LSP client capabilities (typically from nvim-cmp or similar)
+--- @return nil
+return function(capabilities)
+	vim.lsp.config("bashls", {
 		capabilities = capabilities,
-		filetypes = { "sh" },
+		filetypes = { "sh", "bash", "zsh" },
 	})
 end

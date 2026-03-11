@@ -1,16 +1,17 @@
-return function(lspconfig, on_attach, capabilities)
-	lspconfig.emmet_ls.setup({
-		on_attach = on_attach,
+--- @param capabilities table LSP client capabilities (typically from nvim-cmp or similar)
+--- @return nil
+return function(capabilities)
+	vim.lsp.config("emmet_ls", {
 		capabilities = capabilities,
 		filetypes = {
-			"typescript",
-			"javascript",
-			"typescriptreact",
-			"javascriptreact",
 			"css",
+			"javascript",
+			"javascriptreact",
 			"sass",
 			"scss",
 			"svelte",
+			"typescript",
+			"typescriptreact",
 			"vue",
 		},
 	})

@@ -1,7 +1,15 @@
-return function(lspconfig, on_attach, capabilities)
-	lspconfig.tailwindcss.setup({
-		on_attach = on_attach,
+--- @param capabilities table LSP client capabilities (typically from nvim-cmp or similar)
+--- @return nil
+return function(capabilities)
+	vim.lsp.config("tailwindcss", {
 		capabilities = capabilities,
-		filetypes = { "javascriptreact", "typescriptreact", "typescript", "javascript", "vue", "svelte" },
+		filetypes = {
+      "javascript",
+      "javascriptreact",
+      "svelte",
+      "typescript",
+      "typescriptreact",
+      "vue",
+    },
 	})
 end

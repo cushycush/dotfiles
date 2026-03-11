@@ -1,16 +1,17 @@
-return function(lspconfig, on_attach, capabilities)
-	lspconfig.pyright.setup({
-		on_attach = on_attach,
+--- @param capabilities table LSP client capabilities (typically from nvim-cmp or similar)
+--- @return nil
+return function(capabilities)
+	vim.lsp.config("pyright", {
 		capabilities = capabilities,
 		filetypes = { "python" },
 		settings = {
 			pyright = {
+        disableOrganizeImports = false,
 				analysis = {
+					useLibraryCodeForTypes = true,
 					autoSearchPaths = true,
 					diagnosticMode = "workspace",
-					useLibraryCodeForTypes = true,
-					autoImportCompletion = true,
-					disableOrganizeImports = false,
+					autoImportCompletions = true,
 				},
 			},
 		},
