@@ -1,0 +1,92 @@
+rm -rf ~/.config
+history | clear
+stow -v .
+mv .config/nushell/ .config/nushell/
+cd .config/
+ls
+cd nushell/
+ls
+mv config.nu ~/.config/nushell/
+mv env.nu ~/.config/nushell/
+cd
+cd .config/
+cd nushell/
+ls
+nvim config.nu
+nu --no-history
+exit
+exit
+ls
+cd .config
+cd nvim/ls
+ls
+cd nvim
+ls
+nvim init.lua
+cd
+cd dotfiles/
+cd .config/nvim/
+ls
+nvim init.lua
+ls
+git add .
+git commit -m "moved over to vim.lsp from lspconfig"
+git push origin main
+..
+mkdir tmux
+cd tmux/
+nvim tmux.conf
+mkdir plugins
+git clone https://github.com/tmux-plugins/tpm ./plugins/tpm
+ls plugins/
+ls
+cd plugins/
+ls
+..
+ls
+tmux new-session
+tmux list-sessions
+tmux new session
+exit
+tmux new-session
+ls
+ls
+nvim tmux.conf
+../..
+stow -v .
+ls
+tmux source ~/.config/tmux/tmux.conf
+cd .config/tmux/
+ls
+nvim tmux.conf
+..
+cd nvim/
+ls
+nvim init.lua
+tmux source ./tmux.conf
+nvim tmux.conf
+reboot
+ls
+cd dotfiles/
+ls
+cd .config/
+cd nvim/
+ls
+nvim init.lua
+ls
+nvim init.lua
+ls
+..
+ls
+..
+stow -D .config
+ls
+ls -a
+ls ~/.config
+ls
+stow -Dv .confg
+stow -Dv .config
+stow -v .
+ls ~/.config
+ls
+ls -a
