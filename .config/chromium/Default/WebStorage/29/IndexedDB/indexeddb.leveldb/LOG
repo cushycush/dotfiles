@@ -1,6 +1,0 @@
-2026/03/02-21:30:27.812 a04 Creating DB /home/cush/.config/chromium/Default/WebStorage/29/IndexedDB/indexeddb.leveldb since it was missing.
-2026/03/02-21:30:27.818 a04 Reusing MANIFEST /home/cush/.config/chromium/Default/WebStorage/29/IndexedDB/indexeddb.leveldb/MANIFEST-000001
-2026/03/02-21:40:30.560 a02 Level-0 table #5: started
-2026/03/02-21:40:30.563 a02 Level-0 table #5: 9807 bytes OK
-2026/03/02-21:40:30.568 a02 Delete type=0 #3
-2026/03/02-21:40:30.568 a02 Manual compaction at level-0 from (begin) .. (end); will stop at (end)

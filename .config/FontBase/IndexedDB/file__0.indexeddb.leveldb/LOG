@@ -1,6 +1,0 @@
-2026/03/05-01:18:09.300 955 Reusing MANIFEST /home/cush/.config/FontBase/IndexedDB/file__0.indexeddb.leveldb/MANIFEST-000001
-2026/03/05-01:18:09.300 955 Recovering log #3
-2026/03/05-01:18:09.307 955 Reusing old log /home/cush/.config/FontBase/IndexedDB/file__0.indexeddb.leveldb/000003.log 
-2026/03/05-01:19:41.523 955 Level-0 table #5: started
-2026/03/05-01:19:41.540 955 Level-0 table #5: 3362753 bytes OK
-2026/03/05-01:19:41.546 955 Delete type=0 #3

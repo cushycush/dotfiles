@@ -1,6 +1,0 @@
-[Unit]
-Description=Notify on KMonad failure
-
-[Service]
-Type=oneshot
-ExecStart=/usr/bin/nu %h/.local/bin/kmonad-notify.nu
