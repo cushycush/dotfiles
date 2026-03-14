@@ -37,28 +37,28 @@ vim.keymap.set("n", "J", "mzJ`z", { desc = "Join lines and keep cursor position"
 -- Quick Config Editing
 vim.keymap.set("n", "<leader>rc", "<cmd>e ~/.config/init.lua<cr>", { desc = "Edit config" })
 
--- File Explorer
-vim.keymap.set("n", "<leader>m", "<cmd>NvimTreeFocus<cr>", { desc = "Focus file explorer"})
-vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<cr>", { desc = "Toggle file explorer"})
-
 -- Delete and Change Without Yanking
-vim.keymap.set({'n', 'v'}, '<leader>d', '"_d')
-vim.keymap.set({'n', 'v'}, '<leader>D', '"_D')
-vim.keymap.set({'n', 'v'}, 'c', '"_c')
-vim.keymap.set({'n', 'v'}, 'C', '"_C')
-vim.keymap.set({'n', 'v'}, 'x', '"_x')
-vim.keymap.set({'n', 'v'}, 'X', '"_X')
+vim.keymap.set({ "n", "v" }, "<leader>d", '"_d')
+vim.keymap.set({ "n", "v" }, "<leader>D", '"_D')
+vim.keymap.set({ "n", "v" }, "c", '"_c')
+vim.keymap.set({ "n", "v" }, "C", '"_C')
+vim.keymap.set({ "n", "v" }, "x", '"_x')
+vim.keymap.set({ "n", "v" }, "X", '"_X')
 
 -- Save and Quit
-vim.keymap.set("n", "<leader>q", "<cmd>wqa!", { desc = "Save and quit" })
+vim.keymap.set("n", "<leader>q", "<cmd>wqa!<cr>", { desc = "Save and quit" })
 
 -- Copy File Path
 vim.keymap.set("n", "<leader>pa", function()
-    local path = vim.fn.expand("%:p")
-    vim.fn.setreg("+", path)
-    print("file:", path)
-  end, { desc = "Copy full file path" }
-)
+	local path = vim.fn.expand("%:p")
+	vim.fn.setreg("+", path)
+	print("file:", path)
+end, { desc = "Copy full file path" })
 
 -- Clear Highlights
 vim.keymap.set("n", "<esc>", "<cmd>noh<cr>")
+
+-- Commenting
+vim.keymap.set("n", "gcc", "<leader>/", { desc = "Comment line" })
+vim.keymap.set("v", "gc", "<leader>/", { desc = "Comment block" })
+

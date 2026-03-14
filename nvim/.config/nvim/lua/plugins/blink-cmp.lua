@@ -1,10 +1,5 @@
 return {
 	"saghen/blink.cmp",
-	dependencies = {
-		"saadparwaiz1/cmp_luasnip",
-		"L3MON4D3/LuaSnip",
-		"rafamadriz/friendly-snippets",
-	},
 	version = "1.*",
 
 	--- @module 'blink.cmp'
@@ -21,10 +16,18 @@ return {
 		},
 		sources = {
 			default = {
+				"lazydev",
 				"lsp",
 				"path",
 				"snippets",
 				"buffer",
+			},
+			providers = {
+				lazydev = {
+					name = "LazyDev",
+					module = "lazydev.integrations.blink",
+					score_offset = 100,
+				},
 			},
 		},
 		fuzzy = {
@@ -32,4 +35,8 @@ return {
 		},
 	},
 	opts_extend = { "sources.default" },
+	config = function()
+		require("utils.diagnostics")
+		require("utils.lsp")
+	end,
 }

@@ -22,7 +22,7 @@ return function(capabilities)
 			"c",
 			"cpp",
 			"css",
-			"docker",
+			"dockerfile",
 			"go",
 			"html",
 			"javascript",
