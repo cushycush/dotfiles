@@ -1,4 +1,4 @@
---- @param capabilities table LSP client capabilities (typically from nvim-cmp or similar)
+--- @param capabilities table LSP client capabilities
 --- @return nil
 return function(capabilities)
 	vim.lsp.config("lua_ls", {
@@ -6,7 +6,7 @@ return function(capabilities)
 		settings = {
 			Lua = {
 				diagnostics = {
-					globals = { "vim" },
+					globals = { "vim", "Snacks" },
 				},
 				workspace = {
 					library = {

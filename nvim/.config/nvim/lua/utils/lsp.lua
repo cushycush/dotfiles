@@ -16,14 +16,6 @@ M.on_attach = function(client, bufnr)
 	keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<cr>", opts) -- next diagnostics
 	keymap("n", "<leader>K", "<cmd>lua vim.lsp.buf.hover()<cr>", opts) -- hover docs
 
-	-- fzf-lua keymaps
-	--keymap("n", "<leader>gd", "<cmd>FzfLua lsp_finder<cr>", opts) -- lsp finder (def + ref)
-	--keymap("n", "<leader>gr", "<cmd>FzfLua lsp_references<cr>", opts) -- reference finder
-	--keymap("n", "<leader>gt", "<cmd>FzfLua lsp_typedefs<cr>", opts) -- type def finder
-	--keymap("n", "<leader>gi", "<cmd>FzfLua lsp_implementation<cr>", opts) -- go to impl
-	--keymap("n", "<leader>ds", "<cmd>FzfLua lsp_document_symbols<cr>", opts) -- list all symbols
-	--keymap("n", "<leader>ws", "<cmd>FzfLua lsp_workspace_symbols<cr>", opts) -- list all symbols in ws
-
 	-- Order Imports (if supported by lsp)
 	if client.supports_method("textDocument/codeAction") then
 		keymap("n", "<leader>oi", function()
