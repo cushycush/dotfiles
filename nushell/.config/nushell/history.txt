@@ -90,3 +90,30 @@ stow -v .
 ls ~/.config
 ls
 ls -a
+nu --no-history
+exit
+tmux new-session
+exit
+cd .config/tmux
+ls
+nvim tmux.conf
+exit
+tmux new-session
+cd dotfiles/
+ls
+nvim
+ls
+cd nvim/.config/nvim/
+nvim init.lua
+cargo install xcolor
+xcolor
+pick 
+man pick
+nvim init.lua
+nvim
+nvim init.lua
+nvimn
+nvim
+nvim init.lua
+ls
+nvim init.lua

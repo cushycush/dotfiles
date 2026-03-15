@@ -24,3 +24,4 @@ $env.PROMPT_COMMAND = { ||
 $env.PROMPT_INDICATOR = ""
 $env.PROMPT_MULTILINE_INDICATOR = "::: "
 $env.PROMPT_COMMAND_RIGHT = { || starship prompt --right }
+source "~/.cargo/env.nu"
