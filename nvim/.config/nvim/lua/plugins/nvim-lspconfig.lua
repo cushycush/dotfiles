@@ -85,15 +85,17 @@ return {
 
 		-- Use vim.lsp.config for Neovim 0.11+
 		for server, server_config in pairs(tools.servers) do
-			vim.lsp.config(server, {
-				capabilities = blink.get_lsp_capabilities(server_config.capabilities),
-				on_attach = on_attach,
-				settings = server_config.settings,
-				filetypes = server_config.filetypes,
-			})
+			if vim.lsp.config[server] and vim.lsp.config[server].name then
+				local base = vim.lsp.config[server] or {}
+				vim.lsp.config[server] = vim.tbl_deep_extend("force", base, {
+					on_attach = on_attach,
+					settings = server_config.settings,
+					filetypes = server_config.filetypes,
+				})
+			end
 		end
 
-		vim.lsp.enable()
+		vim.lsp.enable(vim.tbl_keys(tools.servers))
 
 		vim.api.nvim_create_autocmd("LspAttach", {
 			callback = function(args)

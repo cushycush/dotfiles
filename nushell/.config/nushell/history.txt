@@ -254,3 +254,4 @@ z nvim
 ls
 z .config/nvim/
 ls
+nvim init.lua

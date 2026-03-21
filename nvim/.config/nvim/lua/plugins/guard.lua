@@ -41,10 +41,10 @@ return {
 			end
 		end
 
-		require("guard").setup({
+		vim.g.guard_config = {
 			fmt_on_save = true,
 			lsp_as_default_formatter = false,
 			auto_lint = true,
-		})
+		}
 	end,
 }
