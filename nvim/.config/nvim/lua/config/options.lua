@@ -7,11 +7,12 @@
 vim.opt.number = true -- line numbers
 vim.opt.relativenumber = true -- relative line numbers
 vim.opt.cursorline = true -- highlight current line
-vim.opt.scrolloff = 10 -- keep 10 lines above/below cursor
+vim.opt.scrolloff = 999 -- keep cursor in the middle of the screen when scrolling
 vim.opt.sidescrolloff = 8 -- keep 8 columns left/right of cursor
 vim.opt.wrap = false -- don't wrap lines
-vim.opt.cmdheight = 1 -- command line height
+vim.opt.cmdheight = 0 -- command line only appears when using it
 vim.opt.spelllang = { "en" } -- set language for spellchecking
+vim.opt.inccommand = "split" -- show previews in a split window
 
 -- Tabbing / Indentation
 vim.opt.tabstop = 2 -- tab width
@@ -64,9 +65,7 @@ vim.opt.diffopt:append("linematch:60") -- better diff highlighting (smart line m
 -- Set Undo Directory and Ensure It Exists
 local undodir = vim.fn.expand("~/.local/share/nvim/undodir") -- undo directory path
 vim.opt.undodir = undodir
-if
-  vim.fn.isdirectory(undodir) == 0
-then
+if vim.fn.isdirectory(undodir) == 0 then
 	vim.fn.mkdir(undodir, "p") -- create if not exists
 end
 
@@ -77,6 +76,7 @@ vim.opt.autochdir = false -- don't change directory automatically
 vim.opt.iskeyword:append("-") -- treat dash as part of a word
 vim.opt.path:append("**") -- search into subfolders with `gf`
 vim.opt.selection = "inclusive" -- use inclusive selection
+vim.opt.virtualedit = "block" -- allow virtual block selection to select individual cells
 vim.opt.mouse = "a" -- enable mouse support
 vim.opt.clipboard:append("unnamedplus") -- use system clipboard
 vim.opt.modifiable = true -- allow editing buffers

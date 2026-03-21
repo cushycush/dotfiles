@@ -1,5 +1,8 @@
 return {
 	"saghen/blink.cmp",
+	dependencies = {
+		"rafamadriz/friendly-snippets",
+	},
 	version = "1.*",
 	build = "cargo build --release",
 
@@ -8,7 +11,6 @@ return {
 	opts = {
 		keymap = {
 			preset = "enter",
-			["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
 		},
 		sources = {
 			default = {
@@ -28,7 +30,6 @@ return {
 		},
 		appearance = {
 			nerd_font_variant = "mono",
-			-- Link blink's highlights to your theme's completion highlights
 			kind_icons = {
 				Color = "󱓡",
 				Column = "󰃭",
@@ -71,7 +72,7 @@ return {
 							text = function()
 								return "|"
 							end,
-							highlight = "BLINKCmpScrollBarThumb",
+							highlight = "BlinkCmpScrollBarThumb",
 						},
 						source_name = {
 							text = function(ctx)
@@ -98,22 +99,13 @@ return {
 	opts_extend = { "sources.default" },
 	config = function(_, opts)
 		require("blink.cmp").setup(opts)
-		require("utils.diagnostics")
-		require("utils.lsp")
+		require("config.lsp.diagnostics").setup()
 
-		-- Force blink highlights to use standard Pmenu colors
+		-- Keep blink menu consistent with the active colorscheme.
 		vim.api.nvim_set_hl(0, "BlinkCmpMenu", { link = "Pmenu" })
 		vim.api.nvim_set_hl(0, "BlinkCmpMenuBorder", { link = "FloatBorder" })
 		vim.api.nvim_set_hl(0, "BlinkCmpDoc", { link = "NormalFloat" })
 		vim.api.nvim_set_hl(0, "BlinkCmpDocBorder", { link = "FloatBorder" })
 		vim.api.nvim_set_hl(0, "BlinkCmpSelection", { link = "PmenuSel" })
-
-		-- Make the Thumb (moving part) a specific color
-		vim.api.nvim_set_hl(0, "BlinkCmpScrollBarThumb", { fg = "#d84d8a", bg = "#ffffff" })
-		-- Set menu and documentation border color
-		vim.api.nvim_set_hl(0, "BlinkCmpMenuBorder", { fg = "#fb7db4", bg = "NONE" })
-		vim.api.nvim_set_hl(0, "BlinkCmpDocBorder", { fg = "#fb7db4", bg = "NONE" })
-		-- Style your source names
-		vim.api.nvim_set_hl(0, "BlinkCmpSource", { fg = "#161617", italic = true })
 	end,
 }

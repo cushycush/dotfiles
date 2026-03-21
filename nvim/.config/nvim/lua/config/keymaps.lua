@@ -62,3 +62,11 @@ vim.keymap.set("n", "<esc>", "<cmd>noh<cr>")
 vim.keymap.set("n", "gcc", "<leader>/", { desc = "Comment line" })
 vim.keymap.set("v", "gc", "<leader>/", { desc = "Comment block" })
 
+-- LSP / Diagnostics
+vim.keymap.set("n", "<leader>gD", "<cmd>lua vim.lsp.buf.definition()<cr>") -- go to definition
+vim.keymap.set("n", "<leader>gI", "<cmd>lua vim.lsp.buf.implementation()<cr>") -- go to definition
+vim.keymap.set("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<cr>") -- code actions
+vim.keymap.set("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<cr>") -- rename symbol
+vim.keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<cr>") -- previous diagnostics
+vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<cr>") -- next diagnostics
+vim.keymap.set("n", "<leader>K", "<cmd>lua vim.lsp.buf.hover()<cr>") -- hover docs

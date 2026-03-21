@@ -2,12 +2,12 @@
 command = /usr/bin/nu
 
 # Dynamic theme colors
-#config-file = ?"~/.config/omarchy/current/theme/ghostty.conf"
+config-file = "~/.config/ghostty/themes/oxocarbon.conf"
 
 # Font
-font-family = "iA Writer Mono S Bold"
+font-family = "Annotation Mono"
 font-style = Regular
-font-size = 13
+font-size = 10
 
 # Window
 window-theme = ghostty
@@ -35,30 +35,6 @@ keybind = super+control+shift+alt+arrow_right=resize_split:right,100
 
 # Slowdown mouse scrolling
 mouse-scroll-multiplier = 0.95
-
-# Theme (oxocarbon)
-palette = 0=#262626
-palette = 1=#ff7eb6
-palette = 2=#42be65
-palette = 3=#82cfff
-palette = 4=#33b1ff
-palette = 5=#ee5396
-palette = 6=#3ddbd9
-palette = 7=#dde1e6
-palette = 8=#393939
-palette = 9=#ff7eb6
-palette = 10=#42be65
-palette = 11=#82cfff
-palette = 12=#33b1ff
-palette = 13=#ee5396
-palette = 14=#3ddbd9
-palette = 15=#ffffff
-foreground = #dde1e6
-background = #161616
-cursor-color = #f2f4f8
-cursor-text = #393939
-selection-foreground = #f2f4f8
-selection-background = #525252
 
 # Cursor Shaders
 custom-shader = shaders/cursor_smear.glsl

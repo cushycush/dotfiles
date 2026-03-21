@@ -117,3 +117,140 @@ nvim
 nvim init.lua
 ls
 nvim init.lua
+ls ~/.local/state/
+ls ~/.local/state/omarchy/
+ls ~/.local/share/
+ls ~/.local/share/fonts/
+cd
+ls
+cd Developer/
+ls
+mkdir fonts
+cd fonts/
+git clone https://github.com/datMaffin/monofoki.git
+cd monofoki/
+ls
+./create_font.sh
+ls
+cd export/
+ls
+open .
+open
+cd
+cd dotfiles/
+ls
+cd nvim/
+ls
+cd .config/nvim/
+ls
+nvim init.lua
+ls
+cd dotfiles/nvim/.config/nvim/
+ls
+exit
+nvim init.lua
+ls
+cd dotfiles/nvim/.config/nvim/
+ls
+nvim init.lua
+../../
+ls
+..
+ls
+cd ghostty/
+ls
+cd .config/ghostty/
+ls
+nvim config
+ls
+cd dotfiles/
+ls
+cd nushell/
+ls
+cd .config/nushell/
+ls
+nvim config.nu
+cd nvim
+z nvim
+z
+cd dotfiles/nvim/.config/nvim/
+cd
+z nvim
+cd nvim
+man z
+cd dot/n/.c/n
+cd d
+z d
+ls
+cd dotfiles/
+ls
+cd nvim/
+ls
+cd .config/nvim/
+ls
+nvim init.lua
+z doc
+z nvim
+nvim init.lua
+yay -S cursor-bin
+nvim --headless "+qa"
+nvim
+NVIM_AGENT_RUN_ID=post-fix nvim --headless "+qa"
+nvim
+nvim Dockerfile
+ls
+nvim test.ts
+ls
+cd Developer/
+ls
+nvim test.tsx
+nvim Dockerfile
+exit
+ls
+nvim
+ls
+cd dotfiles/
+ls
+cd nvim/.config/nvim/
+ls
+nvim init.lua
+nvim
+file
+ls
+cd dotfiles/
+cd nvim/.config/nvim/
+ls
+nvim init.lua
+opencode
+ls
+cd nvim
+man z
+man zoxide
+zoxide nvim
+man zoxide
+z nvim
+man zoxide
+$nu.env-path
+cd dotfiles/
+ls
+cd nushell/
+ls
+cd .config/nushell/
+ls
+nvim env.nu
+z nvim
+cd nvim
+ls
+nvim config.nu
+cd nvim
+cd
+nvim config.nu
+cd
+z
+z nvim
+z dotfiles/
+ls
+z nvim
+ls
+z .config/nvim/
+ls

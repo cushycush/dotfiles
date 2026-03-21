@@ -21,10 +21,10 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("config/options")
-require("config/globals")
-require("config/keymaps")
-require("config/autocmds")
+require("config.options")
+require("config.globals")
+require("config.keymaps")
+require("config.autocmds")
 
 require("lazy").setup({
 	spec = {
