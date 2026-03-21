@@ -78,7 +78,7 @@ M.linters = {
 	javascriptreact = { "eslint_d" },
 	json = { "eslint_d" },
 	jsonc = { "eslint_d" },
-	lua = { "luacheck" },
+
 	python = { "flake8" },
 	sh = { "shellcheck" },
 	svelte = { "eslint_d" },

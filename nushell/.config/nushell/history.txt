@@ -255,3 +255,12 @@ ls
 z .config/nvim/
 ls
 nvim init.lua
+opencode
+nvim init.lua
+nvim
+cd .cursor/
+ls
+..
+ls
+..
+ls
