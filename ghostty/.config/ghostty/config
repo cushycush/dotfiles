@@ -42,3 +42,10 @@ custom-shader = shaders/ripple_cursor.glsl
 
 # Fix general slowness on hyprland (https://github.com/ghostty-org/ghostty/discussions/3224)
 async-backend = epoll
+
+# Make underline character lower or higher
+adjust-underline-position = 2
+
+# Keybinds
+keybind = ctrl+shift+j=unbind
+keybind = shift+enter=text:\x1b\r # Newline instead of sending input

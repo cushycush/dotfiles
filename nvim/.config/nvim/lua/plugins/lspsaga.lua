@@ -9,8 +9,14 @@ return {
 		ui = {
 			border = "rounded",
 		},
-		symbol_in_winbar = {
-			enable = false,
+		breadcrumbs = {
+			enable = true,
+			symbols_in_winbar = {
+				enable = true,
+			},
+		},
+		implement = {
+			enable = true,
 		},
 	},
 	keys = {
@@ -21,5 +27,6 @@ return {
 		{ "<leader>ca", "<cmd>Lspsaga code_action<cr>", desc = "Code action" },
 		{ "<leader>rn", "<cmd>Lspsaga rename<cr>", desc = "Rename" },
 		{ "<leader>cd", "<cmd>Lspsaga show_line_diagnostics<cr>", desc = "Line diagnostics" },
+    { "<leader>o", "<cmd>Lspsaga outline<cr>", desc = "Symbol outline" },
 	},
 }

@@ -13,11 +13,13 @@ return {
 			indicator = {
 				style = "underline",
 			},
-			offsets = {
-				{
-					filetype = "snacks_picker_list",
-				},
+		offsets = {
+			{
+				filetype = "snacks_layout_box",
+				text = "󰙅  File Explorer",
+				separator = true,
 			},
+		},
 			separator_style = "thick",
 			enforce_regular_tabs = true,
 		},

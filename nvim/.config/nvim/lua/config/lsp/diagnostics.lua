@@ -9,7 +9,7 @@ local diagnostic_signs = {
 
 M.setup = function()
 	vim.diagnostic.config({
-		virtual_lines = true,
+		virtual_lines = false,
 		signs = {
 			text = {
 				[vim.diagnostic.severity.ERROR] = diagnostic_signs.Error,

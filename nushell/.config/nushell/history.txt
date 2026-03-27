@@ -264,3 +264,140 @@ ls
 ls
 ..
 ls
+nvim .
+exit
+exit
+nvim init.lua
+z dev
+z
+z dev
+z Developer/
+ls
+nvim test.tsx
+z nvim
+z
+z dotfiles/nvim/.config/
+z nvim
+ls
+nvim init.lua
+exit
+:qexit
+exit
+tmux new-session
+exit
+nu
+nvim init.lua
+ls
+z nvim
+z doc
+..
+ls
+..
+ls
+opencode
+exit
+nu
+exit
+nu
+exit
+cd tmux/
+ls
+cd .config/tmux/
+ls
+nvim tmux.conf
+cd dotfiles/
+ls
+nvim .
+cd nvim/.config/nvim/
+nvim init.lua
+df -h /boot
+sudo paccache -r
+sudo paccache -rk1
+snapper list
+sudo snapper list
+sudo snapper delete 2
+sudo snapper list
+sudo snapper delete 3 4 5
+sudo snapper list
+clear
+nvim ini
+nvim init.lua
+../../..
+cd ghostty/
+ls
+cd .config/ghostty/
+ls
+nvim config
+../..
+..
+z nvim
+z .config/nvim/
+ls
+nvim init.lua
+nvim lua/config/options.lua
+lscpu | grep -i Virtualization
+zgrep CONFIG_KVM /proc/config.gz
+yay -Syu
+yay -S qemu-full qemu-img libvirt virt-install virt-manager virt-viewer edk2-ovmf swtpm guestfs-tools libosinfo
+yay -S tuned
+sudo systemctl enable libvirtd.service
+sudo systemctl start libvirtd.service
+tuned --version
+sudo systemctl enable --now tuned
+tuned-adm active
+tuned-adm list
+sudo tuned-adm profile virtual-host
+tuned-adm active
+sudo virsh net-list --all
+sudo virsh net-start default
+yay -S dnsmasq
+sudo virsh net-start default
+sudo virsh net-autostart default
+reboot
+nnmcli
+nmcli
+virsh net-list --all
+virsh net-start default
+sudo virsh net-list --all
+virsh net-list
+virsh net-info default
+virsh net-dumpxml default
+sudo virsh net-list
+sudo virsh dumpxml archlinux | grep -A 10 "interface"
+sudo virsh net-dumpxml default
+ip link show
+nmcli device
+sudo tee /etc/sysctl.d/99-kvm-forwarding.conf > /dev/null <<EOF
+sudo nvim /etc/sysctl.d/99-kvm-forwarding.conf
+sudo sysctl -p /etc/sysctl.d/99-kvm-forwarding.conf
+sudo systemctl status firewalld
+sudo systemctl status ufw
+sudo ufw allow in on virbr-kvm out on wlan0
+sudo ufw allow in on virbr-kvm
+sudo ufw allow out on wlan0
+sudo ufw route allow in on wlan0 out on virbr-kvm
+sudo ufw route allow in on virbr-kvm out on wlan0
+sudo ufw show added
+nvim .kvm-network.xml
+sudo virsh net-define ~/.kvm-network.xml
+sudo virsh net-start kvm-wifi-nat
+sudo virsh net-autostart kvm-wifi-nat
+sudo virsh net-list
+ip link show virbr-kvm
+sudo virsh net-dumpxml kvm-wifi-nat | grep -A 5 dhcp
+cat /proc/sys/net/ipv4/ip_forward
+sudo virsh net-list
+sudo ufw show added
+lscpu
+opencode
+cd dotfiles/ghostty/.config/ghostty/
+nvim config
+cd
+cd /
+cd var/lib/libvirt/images/
+ls
+sudo nvim /etc/libvirt/qemu.conf
+sudo systemctl restart libvirtd
+cd
+cd dotfiles/
+ls

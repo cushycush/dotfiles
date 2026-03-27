@@ -61,6 +61,13 @@ return {
 	},
 	keys = {
     {
+      "<leader>nh",
+      function()
+        Snacks.notifier.show_history()
+      end,
+      desc = "Notifier History"
+    },
+    {
       "<leader>gg",
       function()
         Snacks.lazygit.open()

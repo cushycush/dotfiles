@@ -23,6 +23,13 @@ function M.apply()
 	set("BlinkCmpMenuBorder", { fg = palette.muted, bg = "NONE" })
 	set("BlinkCmpDocBorder", { fg = palette.muted, bg = "NONE" })
 
+	-- blink.pairs (rainbow colors for bracket matching)
+	set("BlinkPairsOrange", { fg = palette.cyan })
+	set("BlinkPairsPurple", { fg = palette.magenta })
+	set("BlinkPairsBlue", { fg = palette.blue })
+	set("BlinkPairsUnmatched", { fg = palette.muted })
+	set("BlinkPairsMatchParen", { fg = palette.cyan, bold = true })
+
 	-- snacks.nvim (best-effort: groups are safe to define even if unused)
 	set("SnacksPickerBorder", { fg = palette.muted, bg = "NONE" })
 	set("SnacksPickerTitle", { fg = palette.blue, bold = true })
@@ -34,6 +41,9 @@ function M.apply()
 	set("SagaBorder", { fg = palette.muted, bg = "NONE" })
 	set("SagaNormal", { fg = palette.fg, bg = palette.bg })
 	set("SagaTitle", { fg = palette.blue, bold = true })
+
+	-- mini.indentscope
+	set("MiniIndentscopeSymbol", { fg = palette.cyan })
 end
 
 function M.setup()

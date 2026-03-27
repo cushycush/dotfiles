@@ -32,7 +32,7 @@ vim.opt.incsearch = true -- show matches as you type
 
 -- Visual Settings
 vim.opt.termguicolors = true -- enable 24-bit colors
-vim.opt.signcolumn = "yes" -- always show sign-column
+vim.opt.signcolumn = "yes:2" -- always show sign-column with fixed width of 1
 vim.opt.colorcolumn = "100" -- show sign column at 100 characters
 vim.opt.showmatch = true -- highlight matching brackets
 vim.opt.matchtime = 2 -- how long to show matching bracket
@@ -47,6 +47,8 @@ vim.opt.lazyredraw = false -- redraw while execuring macros (better UX)
 vim.opt.redrawtime = 10000 -- timeout for syntax highlighting redraw
 vim.opt.maxmempattern = 20000 -- max memory for pattern matching
 vim.opt.synmaxcol = 300 -- syntax highlighting column limit
+vim.opt.list = true
+vim.opt.listchars = { space = "·", tab = "··", trail = "·" }
 
 -- File Handling
 vim.opt.backup = false -- don't create backup files
