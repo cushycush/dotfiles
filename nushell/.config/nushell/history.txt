@@ -401,3 +401,29 @@ sudo systemctl restart libvirtd
 cd
 cd dotfiles/
 ls
+opencode
+nvim .
+cd
+cd .config/
+cd kitty/
+ls
+nvim kitty.conf
+..
+ls
+cd kmonad/
+ls
+cat config.kbd
+ls
+..
+mv kmonad/ ~/dotfiles/
+ls
+cd
+cd dotfiles/
+ls
+mv kmonad ./kmonad/.config/
+mv kmonad/ k
+ls
+mkdir kmonad/.config
+mv k kmonad/.config/kmonad
+stow -v kmonad
+git status
