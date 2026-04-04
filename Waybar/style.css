@@ -1,0 +1,50 @@
+@import "colors.css";
+
+* {
+  all: unset;
+  font-family: "Google Sans Flex", "Annotation Mono";
+}
+
+tooltip {
+  background-color: @aqua;
+  color: @bg0;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.modules-center {
+  background-color: @bg1;
+  color: @fg;
+  padding: 8px 20px;
+  border-radius: 99px;
+}
+
+#clock {
+  font-weight: 500;
+  color: @yellow;
+  padding: 2px 8px;
+}
+
+#workspaces {
+  background-color: @bg2;
+  padding: 2px 8px;
+  margin: 2px 0;
+  border-radius: 99px;
+}
+
+#workspaces button {
+  background-color: @bg2;
+  padding: 2px 8px;
+  margin: 0 2px;
+  min-width: 7px;
+}
+
+#workspaces button.active {
+  background-color: @bg2;
+  color: @aqua;
+}
+
+#network {
+  padding: 2px 8px;
+}

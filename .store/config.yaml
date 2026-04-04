@@ -1,0 +1,13 @@
+stores:
+    Ghostty:
+        target: /home/cush/.config/ghostty
+    KMonad:
+        target: /home/cush/.config/kmonad
+    NeoVim:
+        target: /home/cush/.config/nvim
+    Nushell:
+        target: /home/cush/.config/nushell
+    Tmux:
+        target: /home/cush/.config/tmux
+    Waybar:
+        target: /home/cush/.config/waybar

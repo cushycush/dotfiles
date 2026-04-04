@@ -1,0 +1,82 @@
+{
+  "layer": "bottom",
+  "spacing": 18,
+  "margin-top": 15,
+  "modules-center": [
+    "clock",
+    "hyprland/workspaces",
+    "pulseaudio",
+    "network",
+    "battery"
+  ],
+  "battery": {
+    "format": "{capacity}% {icon}",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "clock": {
+    "interval": 60,
+    "format": "{:%I:%M %p    %b %d 󰸗}",
+    "tooltip": false
+  },
+  "hyprland/workspaces": {
+    "format": "{icon}",
+    "on-click": "activate",
+    "format-icons": {
+      "urgent": "",
+      "default": "",
+      "active": ""
+    },
+    "persistent-workspaces": {
+      "HDMI-A-1": [1, 2, 3, 4, 5],
+      "DP-3": [1, 2, 3, 4, 5]
+    },
+    "sort-by-number": true
+  },
+  "pulseaudio": {
+    "format": "{volume}%  {icon}",
+    "format-bluetooth": "{volume}% {icon}",
+    "format-muted": "Muted ",
+    "format-icons": {
+      "headphone": "",
+      "headset": "",
+      "phone": "",
+      "phone-muted": "",
+      "portable": "",
+      "car": "",
+      "default": [
+        "",
+        ""
+      ]
+    },
+    "scroll-step": 1,
+    "on-click": "pavucontrol",
+    "ignored-sinks": [
+      "Easy Effects Sink"
+    ]
+  },
+  "network": {
+      "interface": "wlan0",
+      "format": "{ifname}",
+      "format-wifi": "{essid}  {icon}",
+      "format-ethernet": "{ipaddr}/{cidr} 󰊗",
+      "format-disconnected": "", //An empty format will hide the module.
+      "format-icons": [
+      "󰤯",
+      "󰤟",
+      "󰤢",
+      "󰤥",
+      "󰤨"
+    ],
+      "tooltip-format": "{ifname} via {gwaddr} 󰊗",
+      "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+      "tooltip-format-ethernet": "{ifname} ",
+      "tooltip-format-disconnected": "Disconnected",
+      "max-length": 50,
+  }
+}

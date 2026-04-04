@@ -1,13 +1,13 @@
 # Default shell
-command = /usr/bin/nu
+command = /usr/bin/fish
 
 # Dynamic theme colors
-config-file = "~/.config/ghostty/themes/oxocarbon.conf"
+config-file = "~/.config/ghostty/themes/gruvbox.conf"
 
 # Font
-font-family = "Annotation Mono"
+font-family = Annotation Mono
 font-style = Regular
-font-size = 10
+font-size = 14
 
 # Window
 window-theme = ghostty
@@ -16,6 +16,7 @@ window-padding-y = 14
 confirm-close-surface=false
 resize-overlay = never
 gtk-toolbar-style = flat
+background-opacity = 0.9
 
 # Cursor styling
 cursor-style = "block"
@@ -24,6 +25,7 @@ cursor-style-blink = false
 # Cursor styling + SSH session terminfo
 # (all shell integration options must be passed together)
 shell-integration-features = no-cursor,ssh-env
+shell-integration = fish
 
 # Keyboard bindings
 keybind = shift+insert=paste_from_clipboard
