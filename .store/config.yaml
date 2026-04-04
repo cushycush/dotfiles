@@ -1,6 +1,8 @@
 stores:
     Ghostty:
         target: /home/cush/.config/ghostty
+    Hyprland:
+        target: /home/cush/.config/hypr
     KMonad:
         target: /home/cush/.config/kmonad
     NeoVim:
