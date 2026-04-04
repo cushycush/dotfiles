@@ -9,6 +9,10 @@ stores:
         target: /home/cush/.config/nvim
     Nushell:
         target: /home/cush/.config/nushell
+    Quickshell:
+        target: /home/cush/.config/quickshell
+    Rofi:
+        target: /home/cush/.config/rofi/
     Tmux:
         target: /home/cush/.config/tmux
     Waybar:
