@@ -1,229 +1,157 @@
+local chars = require("utils.chars")
+local neovim = require("utils.neovim")
+
+-- Custom mode names.
+-- I want all of them to be the same length so that lualine stays constant.
+local function fmt_mode(s)
+	local mode_map = {
+		["COMMAND"] = "COMMND",
+		["V-BLOCK"] = "V-BLCK",
+		["TERMINAL"] = "TERMNL",
+		["V-REPLACE"] = "V-RPLC",
+		["O-PENDING"] = "0PNDNG",
+	}
+	return mode_map[s] or s
+end
+
+-- Theme dependant custom colors.
+local text_hl
+local icon_hl
+local green
+local red
+if neovim.is_default() then
+	local C = require("native.themes.default").palette
+	red = C.red
+	green = C.green
+	icon_hl = { fg = C.gray2 }
+	text_hl = { fg = C.gray2 }
+elseif chars.is_nordic() then
+	local C = require("nordic.colors")
+	text_hl = { fg = C.gray3 }
+	icon_hl = { fg = C.gray4 }
+	green = C.green.base
+	red = C.red.base
+elseif chars.is_tokyonight() then
+	local C = require("tokyonight.colors.moon")
+	text_hl = { fg = C.fg_gutter }
+	icon_hl = { fg = C.dark3 }
+	green = C.green1
+	red = C.red1
+end
+
+local function get_virtual_text_color()
+	local enabled = require("native.lsp").virtual_diagnostics
+	if enabled then
+		return { fg = green }
+	end
+	return icon_hl
+end
+
+local function get_format_enabled_color()
+	local enabled = require("native.lsp").format_enabled
+	if enabled then
+		return { fg = green }
+	end
+	return icon_hl
+end
+
+local function get_recording_color()
+	if chars.is_recording() then
+		return { fg = red }
+	else
+		return { fg = text_hl }
+	end
+end
+
+local function diff_source()
+	local gitsigns = vim.b.gitsigns_status_dict
+	if gitsigns then
+		return {
+			added = gitsigns.added,
+			modified = gitsigns.changed,
+			removed = gitsigns.removed,
+		}
+	end
+end
+
+local default_z = {
+	{
+		"location",
+		icon = { "", align = "left" },
+		fmt = function(str)
+			local fixed_width = 7
+			return string.format("%" .. fixed_width .. "s", str)
+		end,
+	},
+	{
+		"progress",
+		icon = { "", align = "left" },
+		separator = { right = "", left = "" },
+	},
+}
+
+local tree = {
+	sections = {
+		lualine_a = {
+			{
+				"mode",
+				fmt = fmt_mode,
+				icon = { "" },
+				separator = { right = " ", left = "" },
+			},
+		},
+		lualine_b = {},
+		lualine_c = {
+			{
+				neovim.get_short_cwd,
+				padding = 0,
+				icon = { "   ", color = icon_hl },
+				color = text_hl,
+			},
+		},
+		lualine_x = {},
+		lualine_y = {},
+		lualine_z = default_z,
+	},
+	filetypes = { "NvimTree" },
+}
+
+local telescope = {
+	sections = {
+		lualine_a = {
+			{
+				"mode",
+				fmt = fmt_mode,
+				icon = { "" },
+				separator = { right = " ", left = "" },
+			},
+		},
+		lualine_b = {},
+		lualine_c = {
+			{
+				function()
+					return "Telescope"
+				end,
+				color = text_hl,
+				icon = { "  ", color = icon_hl },
+			},
+		},
+		lualine_x = {},
+		lualine_y = {},
+		lualine_z = default_z,
+	},
+	filetypes = { "TelescopePrompt" },
+}
+
+if neovim.is_default() then
+	require("native.themes.default").setup_lualine()
+end
+
 return {
 	"nvim-lualine/lualine.nvim",
-	dependencies = {
-		"nvim-tree/nvim-web-devicons",
-	},
-	opts = {},
-	config = function()
-		-- Eviline config for lualine
-		-- Author: shadmansaleh
-		-- Credit: glepnir
-		local lualine = require("lualine")
-
-    -- Color table for highlights
-    -- stylua: ignore
-    local colors = {
-      bg       = '#161616',
-      fg       = '#dde1e6',
-      subtle   = '#393939',
-      muted    = '#525252',
-      blue     = '#33b1ff',
-      cyan     = '#3ddbd9',
-      green    = '#42be65',
-      yellow   = '#82cfff',
-      magenta  = '#ee5396',
-      red      = '#ff7eb6',
-    }
-
-		local conditions = {
-			buffer_not_empty = function()
-				return vim.fn.empty(vim.fn.expand("%:t")) ~= 1
-			end,
-			hide_in_width = function()
-				return vim.fn.winwidth(0) > 80
-			end,
-			check_git_workspace = function()
-				local filepath = vim.fn.expand("%:p:h")
-				local gitdir = vim.fn.finddir(".git", filepath .. ";")
-				return gitdir and #gitdir > 0 and #gitdir < #filepath
-			end,
-		}
-
-		-- Config
-		local config = {
-			options = {
-				-- Disable sections and component separators
-				component_separators = "",
-				section_separators = "",
-				theme = {
-					-- We are going to use lualine_c an lualine_x as left and
-					-- right section. Both are highlighted by c theme .  So we
-					-- are just setting default looks o statusline
-					normal = { c = { fg = colors.fg, bg = colors.bg } },
-					inactive = { c = { fg = colors.fg, bg = colors.bg } },
-				},
-			},
-			sections = {
-				-- these are to remove the defaults
-				lualine_a = {},
-				lualine_b = {},
-				lualine_y = {},
-				lualine_z = {},
-				-- These will be filled later
-				lualine_c = {},
-				lualine_x = {},
-			},
-			inactive_sections = {
-				-- these are to remove the defaults
-				lualine_a = {},
-				lualine_b = {},
-				lualine_y = {},
-				lualine_z = {},
-				lualine_c = {},
-				lualine_x = {},
-			},
-		}
-
-		-- Inserts a component in lualine_c at left section
-		local function ins_left(component)
-			table.insert(config.sections.lualine_c, component)
-		end
-
-		-- Inserts a component in lualine_x at right section
-		local function ins_right(component)
-			table.insert(config.sections.lualine_x, component)
-		end
-
-		ins_left({
-			function()
-				return "▊"
-			end,
-			color = { fg = colors.blue }, -- Sets highlighting of component
-			padding = { left = 0, right = 1 }, -- We don't need space before this
+	config = function(_, opts)
+		require("lualine").setup({
+			options = { theme = "nordic" },
 		})
-
-		ins_left({
-			-- mode component
-			function()
-				return ""
-			end,
-			color = function()
-				-- auto change color according to neovims mode
-				local mode_color = {
-					n = colors.magenta,
-					i = colors.green,
-					v = colors.blue,
-					[""] = colors.blue,
-					V = colors.blue,
-					c = colors.magenta,
-					no = colors.magenta,
-					s = colors.yellow,
-					S = colors.yellow,
-					[""] = colors.yellow,
-					ic = colors.yellow,
-					R = colors.cyan,
-					Rv = colors.cyan,
-					cv = colors.magenta,
-					ce = colors.magenta,
-					r = colors.cyan,
-					rm = colors.cyan,
-					["r?"] = colors.cyan,
-					["!"] = colors.magenta,
-					t = colors.magenta,
-				}
-				return { fg = mode_color[vim.fn.mode()] }
-			end,
-			padding = { right = 1 },
-		})
-
-		ins_left({
-			-- filesize component
-			"filesize",
-			cond = conditions.buffer_not_empty,
-		})
-
-		ins_left({
-			"filename",
-			cond = conditions.buffer_not_empty,
-			color = { fg = colors.blue, gui = "bold" },
-		})
-
-		ins_left({ "location" })
-
-		ins_left({ "progress", color = { fg = colors.fg, gui = "bold" } })
-
-		ins_left({
-			"diagnostics",
-			sources = { "nvim_diagnostic" },
-			symbols = { error = " ", warn = " ", info = " " },
-			diagnostics_color = {
-				error = { fg = colors.red },
-				warn = { fg = colors.yellow },
-				info = { fg = colors.cyan },
-			},
-		})
-
-		-- Insert mid section. You can make any number of sections in neovim :)
-		-- for lualine it's any number greater then 2
-		ins_left({
-			function()
-				return "%="
-			end,
-		})
-
-		ins_left({
-			-- Lsp server name .
-			function()
-				local msg = "No Active Lsp"
-				local buf_ft = vim.api.nvim_get_option_value("filetype", { buf = 0 })
-				local clients = vim.lsp.get_clients()
-				if next(clients) == nil then
-					return msg
-				end
-				for _, client in ipairs(clients) do
-					local filetypes = client.config.filetypes
-					if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-						return client.name
-					end
-				end
-				return msg
-			end,
-			icon = " LSP:",
-			color = { fg = colors.fg, gui = "bold" },
-		})
-
-		-- Add components to right sections
-		ins_right({
-			"o:encoding", -- option component same as &encoding in viml
-			fmt = string.upper, -- I'm not sure why it's upper case either ;)
-			cond = conditions.hide_in_width,
-			color = { fg = colors.green, gui = "bold" },
-		})
-
-		ins_right({
-			"fileformat",
-			fmt = string.upper,
-			icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
-			color = { fg = colors.green, gui = "bold" },
-		})
-
-		ins_right({
-			"branch",
-			icon = "",
-			color = { fg = colors.violet, gui = "bold" },
-		})
-
-		ins_right({
-			"diff",
-			-- Is it me or the symbol for modified us really weird
-			symbols = { added = " ", modified = "󰝤 ", removed = " " },
-			diff_color = {
-				added = { fg = colors.green },
-				modified = { fg = colors.yellow },
-				removed = { fg = colors.red },
-			},
-			cond = conditions.hide_in_width,
-		})
-
-		ins_right({
-			function()
-				return "▊"
-			end,
-			color = { fg = colors.blue },
-			padding = { left = 1 },
-		})
-
-		-- Now don't forget to initialize lualine
-		lualine.setup(config)
 	end,
 }

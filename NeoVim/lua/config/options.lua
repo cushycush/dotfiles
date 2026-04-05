@@ -3,6 +3,9 @@
 -- ABOUT : basic settings native to neovim
 -- ================================================================================================
 
+local U = require("utils.neovim")
+local C = require("utils.chars")
+
 -- Basic Settings
 vim.opt.number = true -- line numbers
 vim.opt.relativenumber = true -- relative line numbers
@@ -39,7 +42,7 @@ vim.opt.matchtime = 2 -- how long to show matching bracket
 vim.opt.completeopt = "menuone,noinsert,noselect" -- completion options
 vim.opt.showmode = false -- don't show mode in command line
 vim.opt.pumheight = 10 -- popup menu height
-vim.opt.pumblend = 10 -- popup menu transparency
+vim.opt.pumblend = 0 -- popup menu transparency
 vim.opt.winblend = 0 -- floating window transparency
 vim.opt.conceallevel = 0 -- don't hide markup
 vim.opt.concealcursor = "" -- show markup even on cursor line
@@ -48,7 +51,7 @@ vim.opt.redrawtime = 10000 -- timeout for syntax highlighting redraw
 vim.opt.maxmempattern = 20000 -- max memory for pattern matching
 vim.opt.synmaxcol = 300 -- syntax highlighting column limit
 vim.opt.list = true
-vim.opt.listchars = { space = "·", tab = "··", trail = "·" }
+vim.opt.listchars = { space = "·", tab = " ·", trail = " " }
 
 -- File Handling
 vim.opt.backup = false -- don't create backup files
@@ -105,3 +108,26 @@ vim.opt.foldlevel = 99 -- keep all folds open by default
 -- Split Behavior
 vim.opt.splitbelow = true -- horizontal splits open below
 vim.opt.splitright = true -- vertical splits open to the right
+
+if not U.is_default() then
+	vim.opt.fillchars = {
+		horiz = C.bottom_thin,
+		horizup = C.bottom_thin,
+		horizdown = C.right_thick,
+		vert = C.right_thick,
+		vertleft = C.right_thick,
+		vertright = C.right_thick,
+		verthoriz = C.right_thick,
+	}
+else
+	vim.opt.fillchars = {
+		eob = " ",
+		diff = "╱",
+		vert = C.right_thick,
+		vertleft = C.right_thick,
+		vertright = C.right_thick,
+		verthoriz = C.right_thick,
+		horiz = C.bottom_thin,
+		horizup = C.bottom_right_thin,
+	}
+end

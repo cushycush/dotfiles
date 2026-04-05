@@ -2,7 +2,7 @@
 command = /usr/bin/fish
 
 # Dynamic theme colors
-config-file = "~/.config/ghostty/themes/gruvbox.conf"
+config-file = "~/.config/ghostty/themes/nordic.conf"
 
 # Font
 font-family = Annotation Mono

@@ -7,7 +7,7 @@ return {
 	},
 	opts = {
 		ui = {
-			border = "rounded",
+			-- border = "rounded",
 		},
 		breadcrumbs = {
 			enable = true,
@@ -27,6 +27,6 @@ return {
 		{ "<leader>ca", "<cmd>Lspsaga code_action<cr>", desc = "Code action" },
 		{ "<leader>rn", "<cmd>Lspsaga rename<cr>", desc = "Rename" },
 		{ "<leader>cd", "<cmd>Lspsaga show_line_diagnostics<cr>", desc = "Line diagnostics" },
-    { "<leader>o", "<cmd>Lspsaga outline<cr>", desc = "Symbol outline" },
+		{ "<leader>o", "<cmd>Lspsaga outline<cr>", desc = "Symbol outline" },
 	},
 }
