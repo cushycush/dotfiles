@@ -13,6 +13,8 @@ stores:
         target: /home/cush/.config/quickshell
     Rofi:
         target: /home/cush/.config/rofi/
+    Shells/Fish:
+        target: /home/cush/.config/fish/
     Tmux:
         target: /home/cush/.config/tmux
     Waybar:
