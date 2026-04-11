@@ -46,6 +46,11 @@ M.servers = {
 	},
 	ts_ls = {},
 	yamlls = {},
+	qmlls = {
+		cmd = { "qmlls", "-E" },
+		filetypes = { "qml" },
+		mason = false,
+	},
 }
 
 M.formatters = {

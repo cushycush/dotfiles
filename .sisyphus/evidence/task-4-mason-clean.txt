@@ -1,0 +1,3 @@
+nvim --headless "+Lazy! sync" +qa
+exit 0
+No Mason errors about qmlls were emitted.

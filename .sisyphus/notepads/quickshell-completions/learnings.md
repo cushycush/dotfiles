@@ -1,1 +1,2 @@
 - 2026-04-11: NeoVim LSP server metadata can safely carry custom fields like `mason = false` if plugin setup filters Mason installs separately and strips the metadata before handing configs to `vim.lsp.config`.
+- 2026-04-11: `qmlls` should be registered with `cmd = { "qmlls", "-E" }` so it reads `QML_IMPORT_PATH` for Quickshell module resolution.

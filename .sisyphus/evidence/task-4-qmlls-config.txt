@@ -1,0 +1,7 @@
+nvim --headless -c 'lua local t = require("config.lsp.tools"); print(t.servers.qmlls and "exists" or "missing")' -c 'qa'
+exists
+
+nvim --headless -c 'lua print(vim.inspect(vim.lsp.config.qmlls))' -c 'qa'
+cmd = { "qmlls", "-E" }
+filetypes = { "qml" }
+name = "qmlls"
