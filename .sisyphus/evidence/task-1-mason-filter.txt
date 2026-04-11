@@ -1,0 +1,85 @@
+Command 1: python - <<'PY'
+from pathlib import Path
+text = Path('NeoVim/lua/plugins/mason-lspconfig.lua').read_text()
+print('HAS_PAIRS_LOOP=' + str('for name, cfg in pairs(tools.servers) do' in text))
+print('HAS_MASON_GUARD=' + str('if cfg.mason ~= false then' in text))
+print('USES_MASON_SERVERS=' + str('ensure_installed = mason_servers' in text))
+print('\nFILE_CONTENT:\n')
+print(text)
+PY
+
+Output 1:
+HAS_PAIRS_LOOP=True
+HAS_MASON_GUARD=True
+USES_MASON_SERVERS=True
+
+FILE_CONTENT:
+
+local tools = require("config.lsp.tools")
+local mason_servers = {}
+
+for name, cfg in pairs(tools.servers) do
+	if cfg.mason ~= false then
+		table.insert(mason_servers, name)
+	end
+end
+
+return {
+	"mason-org/mason-lspconfig.nvim",
+	dependencies = {
+		"mason-org/mason.nvim",
+		"neovim/nvim-lspconfig",
+	},
+	opts = {
+		ensure_installed = mason_servers,
+		automatic_installation = false,
+		-- Disable mason-lspconfig auto-enabling to avoid duplicate/builtin clients.
+		automatic_enable = false,
+	},
+}
+
+Command 2: python - <<'PY'
+from pathlib import Path
+text = Path('NeoVim/lua/config/lsp/tools.lua').read_text()
+checks = {
+	'HAS_GET_ALL_BINARIES_MASON_GUARD': 'if cfg.mason ~= false then' in text,
+	'HAS_SERVER_CFG_LOOP': 'for server, cfg in pairs(M.servers) do' in text,
+}
+for key, value in checks.items():
+	print(f'{key}={value}')
+print('\nGUARD_SNIPPET:\n')
+start = text.index('M.get_all_binaries = function()')
+print(text[start:])
+PY
+
+Output 2:
+HAS_GET_ALL_BINARIES_MASON_GUARD=True
+HAS_SERVER_CFG_LOOP=True
+
+GUARD_SNIPPET:
+
+M.get_all_binaries = function()
+	local all = {}
+
+	for server, cfg in pairs(M.servers) do
+		if cfg.mason ~= false then
+			table.insert(all, server)
+		end
+	end
+
+	for _, f in pairs(M.formatters) do
+		for _, name in ipairs(f) do
+			table.insert(all, name)
+		end
+	end
+
+	for _, l in pairs(M.linters) do
+		for _, name in ipairs(l) do
+			table.insert(all, name)
+		end
+	end
+
+	return all
+end
+
+return M

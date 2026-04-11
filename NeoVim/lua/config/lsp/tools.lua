@@ -78,7 +78,6 @@ M.linters = {
 	javascriptreact = { "eslint_d" },
 	json = { "eslint_d" },
 	jsonc = { "eslint_d" },
-
 	python = { "flake8" },
 	sh = { "shellcheck" },
 	svelte = { "eslint_d" },
@@ -90,8 +89,10 @@ M.linters = {
 M.get_all_binaries = function()
 	local all = {}
 
-	for server, _ in pairs(M.servers) do
-		table.insert(all, server)
+	for server, cfg in pairs(M.servers) do
+		if cfg.mason ~= false then
+			table.insert(all, server)
+		end
 	end
 
 	for _, f in pairs(M.formatters) do

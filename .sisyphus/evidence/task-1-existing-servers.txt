@@ -1,0 +1,32 @@
+Command: python - <<'PY'
+from pathlib import Path
+import re
+lines = Path('NeoVim/lua/config/lsp/tools.lua').read_text().splitlines()
+inside = False
+servers = []
+for line in lines:
+	if line.startswith('M.servers = {'):
+		inside = True
+		continue
+	if inside and line == '}':
+		break
+	if inside and re.match(r'^\t[a-zA-Z0-9_]+\s*=\s*\{', line):
+		servers.append(re.match(r'^\t([a-zA-Z0-9_]+)\s*=', line).group(1))
+print('SERVER_COUNT=' + str(len(servers)))
+for name in servers:
+	print(name)
+PY
+
+Output:
+SERVER_COUNT=11
+lua_ls
+pyright
+gopls
+bashls
+tailwindcss
+jsonls
+dockerls
+clangd
+emmet_ls
+ts_ls
+yamlls

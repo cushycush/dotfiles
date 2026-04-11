@@ -1,3 +1,12 @@
+local tools = require("config.lsp.tools")
+local mason_servers = {}
+
+for name, cfg in pairs(tools.servers) do
+	if cfg.mason ~= false then
+		table.insert(mason_servers, name)
+	end
+end
+
 return {
 	"mason-org/mason-lspconfig.nvim",
 	dependencies = {
@@ -5,10 +14,9 @@ return {
 		"neovim/nvim-lspconfig",
 	},
 	opts = {
-		ensure_installed = vim.tbl_keys(require("config.lsp.tools").servers),
+		ensure_installed = mason_servers,
 		automatic_installation = false,
-		-- We configure servers ourselves via `nvim-lspconfig`.
-		-- Disable mason-lspconfig auto-enabling to avoid duplicate/builtin clients (e.g. docker_language_server).
+		-- Disable mason-lspconfig auto-enabling to avoid duplicate/builtin clients.
 		automatic_enable = false,
 	},
 }
