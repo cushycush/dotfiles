@@ -1,4 +1,5 @@
 if status is-interactive
+  fish_vi_key_bindings
   /usr/sbin/mise activate fish | source
   zoxide init fish | source
 end

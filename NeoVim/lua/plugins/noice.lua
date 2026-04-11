@@ -1,23 +1,35 @@
+local C = require("utils.chars")
+
 return {
-	"folke/noice.nvim",
-	event = "VeryLazy",
-	dependencies = {
-		"MunifTanjim/nui.nvim",
-	},
-	---@module 'noice'
-	opts = {
-		lsp = {
-			override = {
-				["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-				["vim.lsp.util.stylize_markdown"] = true,
-			},
-		},
+  "folke/noice.nvim",
+  event = "VeryLazy",
+  dependencies = {
+    "MunifTanjim/nui.nvim",
+  },
+  opts = {
+    lsp = {
+      override = {
+        ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+        ["vim.lsp.util.stylize_markdown"] = true,
+      },
+    },
+    views = {
+      cmdline_popup = {
+        border = { style = C.border },
+      },
+      hover = {
+        border = { style = C.border },
+      },
+      popup = {
+        border = { style = C.border },
+      },
+    },
     presets = {
       bottom_search = true,
       command_palette = true,
       long_message_to_split = true,
       inc_rename = false,
-      lsp_doc_border = false,
+      lsp_doc_border = true,
     },
-	},
+  },
 }

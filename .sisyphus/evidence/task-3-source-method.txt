@@ -1,0 +1,3 @@
+Command: nvim --headless -c 'lua local m = require("sources.quickshell"); local s = m.new(); print(type(s.get_completions))' -c 'qa'
+Output:
+function

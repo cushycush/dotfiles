@@ -34,7 +34,10 @@ M.border_chars_inner_thin = { " ", "▁", " ", "▏", " ", "▔", " ", "▕" }
 M.border_chars_top_only_thin = { " ", M.top_thin, " ", " ", " ", " ", " ", " " }
 M.border_chars_top_only_normal = { "", M.horizontal_default, "", "", "", " ", "", "" }
 
--- Telscope chars.
+-- Default border style (change here to update all plugins).
+M.border = M.border_chars_outer_thin
+
+-- Telescope chars.
 M.border_helix_telescope = { "─", "│", "─", "│", "┌", "┐", "┘", "└" }
 M.border_chars_outer_thick_telescope = { "▀", "▐", "▄", "▌", "▛", "▜", "▟", "▙" }
 M.border_chars_outer_thin_telescope = { "▔", "▕", "▁", "▏", "🭽", "🭾", "🭿", "🭼" }
@@ -44,102 +47,81 @@ M.border_chars_telescope_vert_preview_thin = { " ", "▕", "▁", "▏", "▏", 
 
 -- Icons.
 M.diagnostic_signs = {
-	error = " ",
-	warning = " ",
-	warn = " ",
-	info = " ",
-	information = " ",
-	hint = " ",
-	other = " ",
+  error = " ",
+  warning = " ",
+  warn = " ",
+  info = " ",
+  information = " ",
+  hint = " ",
+  other = " ",
 }
 M.kind_icons = {
-	Text = " ",
-	Method = " ",
-	Function = "󰊕 ",
-	Constructor = " ",
-	Field = " ",
-	Variable = " ",
-	Class = "󰠱 ",
-	Interface = " ",
-	Module = "󰏓 ",
-	Property = " ",
-	Unit = " ",
-	Value = " ",
-	Enum = " ",
-	EnumMember = " ",
-	Keyword = "󰌋 ",
-	Snippet = "󰲋 ",
-	Color = " ",
-	File = " ",
-	Reference = " ",
-	Folder = " ",
-	Constant = "󰏿 ",
-	Struct = "󰠱 ",
-	Event = " ",
-	Operator = " ",
-	TypeParameter = "󰘦 ",
-	TabNine = "󰚩 ",
-	Copilot = " ",
-	Unknown = " ",
-	Recording = " ",
-	None = "  ",
+  Text = " ",
+  Method = " ",
+  Function = "󰊕 ",
+  Constructor = " ",
+  Field = " ",
+  Variable = " ",
+  Class = "󰠱 ",
+  Interface = " ",
+  Module = "󰏓 ",
+  Property = " ",
+  Unit = " ",
+  Value = " ",
+  Enum = " ",
+  EnumMember = " ",
+  Keyword = "󰌋 ",
+  Snippet = "󰲋 ",
+  Color = " ",
+  File = " ",
+  Reference = " ",
+  Folder = " ",
+  Constant = "󰏿 ",
+  Struct = "󰠱 ",
+  Event = " ",
+  Operator = " ",
+  TypeParameter = "󰘦 ",
+  TabNine = "󰚩 ",
+  Copilot = " ",
+  Unknown = " ",
+  Recording = " ",
+  None = "  ",
 }
 
 function M.get_border_chars(desc)
-	if U.is_default() then
-		if desc == "telescope" then
-			return M.border_chars_telescope_default
-		end
-		return M.border_chars_round
-	end
+  if U.is_default() then
+    if desc == "telescope" then
+      return M.border_chars_telescope_default
+    end
+    return M.border_chars_round
+  end
 
-	if vim.g.neovide then
-		if desc == "telescope" then
-			return M.border_chars_telescope_default
-		end
-		return M.border_chars_round
-	end
+  if vim.g.neovide then
+    if desc == "telescope" then
+      return M.border_chars_telescope_default
+    end
+    return M.border_chars_round
+  end
 
-	if desc == "completion" then
-		return M.border_chars_round
-	end
-	if desc == "cmdline" then
-		return M.border_chars_round
-	end
-	if desc == "search" then
-		return M.border_chars_round
-	end
-	if desc == "float" then
-		return M.border_chars_outer_thin
-	end
-	if desc == "telescope" then
-		return M.border_chars_outer_thin_telescope
-	end
+  if U.is_nordic() then
+    if desc == "telescope" then
+      return M.border_chars_outer_thin_telescope
+    end
+    return M.border_chars_outer_thin
+  end
 
-	if desc == "lsp" then
-		if U.is_nordic() then
-			return M.border_chars_outer_thin
-		end
-		return M.border_chars_round
-	end
-
-	-- Defaults
-	if U.is_nordic() then
-		return M.border_chars_outer_thin
-	end
-	if U.is_tokyonight() then
-		return M.border_chars_round
-	end
-
-	return M.border_chars_round
+  if desc == "telescope" then
+    return M.border_chars_telescope_default
+  end
+  return M.border_chars_round
 end
 
 function M.get_recording_state_icon()
-	if U.is_recording() then
-		return M.kind_icons.Recording
-	else
-		return M.kind_icons.None
-	end
+  if U.is_recording() then
+    return M.kind_icons.Recording
+  else
+    return M.kind_icons.None
+  end
 end
 
 return M

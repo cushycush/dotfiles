@@ -1,0 +1,3 @@
+Command: nvim --headless -c 'lua local ok, m = pcall(require, "sources.quickshell"); print(ok, type(m))' -c 'qa'
+Output:
+true table

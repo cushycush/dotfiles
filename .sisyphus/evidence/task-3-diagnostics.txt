@@ -1,0 +1,12 @@
+LSP diagnostics attempt:
+- quickshell.lua: lua-language-server not installed
+- blink-cmp.lua: lua-language-server not installed
+
+Fallback checks:
+- Module load verification passed
+- Source method verification passed
+- Provider registration verification passed
+- Completion item count verification passed (31 items)
+
+Additional tool availability:
+- luacheck not installed (`luacheck: command not found`)

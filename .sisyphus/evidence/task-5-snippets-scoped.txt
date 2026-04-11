@@ -1,0 +1,15 @@
+Snippet count: 10
+
+Prefixes (all qs-* scoped):
+  qs-scope
+  qs-panel
+  qs-float
+  qs-variants
+  qs-process
+  qs-fileview
+  qs-layershell
+  qs-timer
+  qs-prop
+  qs-signal
+
+No generic Qt Quick snippets (rect/column/row/text): CONFIRMED

@@ -1,0 +1,3 @@
+Command: nvim --headless -c 'lua local spec = require("plugins.blink-cmp"); print(type(spec[1]), spec.opts.sources.providers.quickshell.module, spec.opts.sources.providers.quickshell.score_offset, table.concat(spec.opts.sources.per_filetype.qml, ","))' -c 'qa'
+Output:
+string sources.quickshell 90 quickshell,lsp,path,snippets,buffer

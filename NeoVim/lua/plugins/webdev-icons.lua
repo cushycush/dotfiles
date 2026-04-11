@@ -1,9 +1,4 @@
--- ================================================================================================
--- TITLE : webdev-icons.nvim
--- ABOUT : nerdfont icons for file explorer
--- ================================================================================================
-
 return {
-  "nvim-tree/nvim-web-devicons", 
+  "nvim-tree/nvim-web-devicons",
   opts = {},
 }

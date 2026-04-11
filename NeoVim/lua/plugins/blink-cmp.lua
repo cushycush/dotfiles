@@ -35,12 +35,12 @@ return {
 				},
 				quickshell = {
 					name = "Quickshell",
-					module = "sources.quickshell",
+					module = "quickshell-completions.blink",
 					score_offset = 90,
 				},
 				snippets = {
 					opts = {
-						search_paths = { vim.fn.stdpath("config") .. "/snippets" },
+						-- search_paths set in config function below
 					},
 				},
 			},
@@ -90,6 +90,14 @@ return {
 				},
 			},
 		}
+		local qs_ok, qs = pcall(require, "quickshell-completions")
+		if qs_ok then
+			opts.sources = opts.sources or {}
+			opts.sources.providers = opts.sources.providers or {}
+			opts.sources.providers.snippets = opts.sources.providers.snippets or {}
+			opts.sources.providers.snippets.opts = opts.sources.providers.snippets.opts or {}
+			opts.sources.providers.snippets.opts.search_paths = { qs.get_snippet_path() }
+		end
 		require("blink.cmp").setup(opts)
 	end,
 }

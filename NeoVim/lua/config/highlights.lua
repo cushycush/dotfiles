@@ -1,57 +1,92 @@
 local M = {}
 
-local palette = {
-	bg = "#161616",
-	fg = "#dde1e6",
-	subtle = "#393939",
-	muted = "#525252",
-	blue = "#33b1ff",
-	cyan = "#3ddbd9",
-	magenta = "#ee5396",
-	green = "#42be65",
-	yellow = "#82cfff",
-}
+local function get_palette()
+  if vim.g.colors_name == "nordic" then
+    local C = require("nordic.colors")
+    return {
+      bg = C.bg,
+      bg_dark = C.black0,
+      bg_float = C.black2 or C.black0,
+      fg = C.fg,
+      border = C.black0,
+      muted = C.gray4,
+      subtle = C.gray2,
+      blue = C.blue1,
+      cyan = C.cyan.base,
+      magenta = C.magenta.base,
+      green = C.green.base,
+      yellow = C.yellow.base,
+      red = C.red.base,
+      orange = C.orange.base,
+    }
+  end
+  return nil
+end
 
 local function set(name, opts)
-	vim.api.nvim_set_hl(0, name, opts)
+  vim.api.nvim_set_hl(0, name, opts)
 end
 
 function M.apply()
-	-- blink.cmp
-	set("BlinkCmpScrollBarThumb", { fg = palette.magenta, bg = palette.subtle })
-	set("BlinkCmpSource", { fg = palette.cyan, italic = true })
-	set("BlinkCmpMenuBorder", { fg = palette.muted, bg = "NONE" })
-	set("BlinkCmpDocBorder", { fg = palette.muted, bg = "NONE" })
+  local p = get_palette()
+  if not p then
+    return
+  end
 
-	-- blink.pairs (rainbow colors for bracket matching)
-	set("BlinkPairsOrange", { fg = palette.cyan })
-	set("BlinkPairsPurple", { fg = palette.magenta })
-	set("BlinkPairsBlue", { fg = palette.blue })
-	set("BlinkPairsUnmatched", { fg = palette.muted })
-	set("BlinkPairsMatchParen", { fg = palette.cyan, bold = true })
+  set("FloatBorder", { fg = p.border })
 
-	-- snacks.nvim (best-effort: groups are safe to define even if unused)
-	set("SnacksPickerBorder", { fg = palette.muted, bg = "NONE" })
-	set("SnacksPickerTitle", { fg = palette.blue, bold = true })
-	set("SnacksPickerPrompt", { fg = palette.cyan })
-	set("SnacksExplorerDir", { fg = palette.blue })
-	set("SnacksExplorerFile", { fg = palette.fg })
+  -- noice
+  set("NoiceCmdlinePopupBorder", { fg = p.border })
+  set("NoiceCmdlinePopupTitle", { fg = p.blue })
+  set("NoiceCmdlineIcon", { fg = p.yellow })
+  set("NoiceConfirmBorder", { fg = p.border })
+  set("NoicePopupBorder", { fg = p.border })
+  set("NoicePopupmenuBorder", { fg = p.border })
 
-	-- lspsaga (best-effort)
-	set("SagaBorder", { fg = palette.muted, bg = "NONE" })
-	set("SagaNormal", { fg = palette.fg, bg = palette.bg })
-	set("SagaTitle", { fg = palette.blue, bold = true })
+  -- snacks.notifier
+  set("SnacksNotifierBorderInfo", { fg = p.border })
+  set("SnacksNotifierBorderWarn", { fg = p.border })
+  set("SnacksNotifierBorderError", { fg = p.border })
+  set("SnacksNotifierBorderDebug", { fg = p.border })
+  set("SnacksNotifierBorderTrace", { fg = p.border })
 
-	-- mini.indentscope
-	set("MiniIndentscopeSymbol", { fg = palette.cyan })
+  -- blink.cmp
+  set("BlinkCmpScrollBarThumb", { fg = p.magenta, bg = p.subtle })
+  set("BlinkCmpSource", { fg = p.cyan, italic = true })
+  set("BlinkCmpMenu", { fg = p.fg, bg = p.bg_float })
+  set("BlinkCmpMenuBorder", { fg = p.border, bg = p.bg_float })
+  set("BlinkCmpDoc", { fg = p.fg, bg = p.bg_float })
+  set("BlinkCmpDocBorder", { fg = p.border, bg = p.bg_float })
+
+  -- blink.pairs
+  set("BlinkPairsOrange", { fg = p.cyan })
+  set("BlinkPairsPurple", { fg = p.magenta })
+  set("BlinkPairsBlue", { fg = p.blue })
+  set("BlinkPairsUnmatched", { fg = p.muted })
+  set("BlinkPairsMatchParen", { fg = p.cyan, bold = true })
+
+  -- snacks.nvim
+  set("SnacksPickerBorder", { fg = p.border })
+  set("SnacksPickerTitle", { fg = p.blue, bold = true })
+  set("SnacksPickerPrompt", { fg = p.cyan })
+  set("SnacksExplorerDir", { fg = p.blue })
+  set("SnacksExplorerFile", { fg = p.fg })
+
+  -- lspsaga
+  set("SagaBorder", { fg = p.border })
+  set("SagaNormal", { fg = p.fg, bg = p.bg })
+  set("SagaTitle", { fg = p.blue, bold = true })
+
+  -- mini.indentscope
+  set("MiniIndentscopeSymbol", { fg = p.cyan })
 end
 
 function M.setup()
-	vim.api.nvim_create_autocmd("ColorScheme", {
-		callback = function()
-			M.apply()
-		end,
-	})
+  vim.api.nvim_create_autocmd("ColorScheme", {
+    callback = function()
+      M.apply()
+    end,
+  })
 end
 
 return M

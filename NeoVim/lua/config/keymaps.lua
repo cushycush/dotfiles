@@ -13,18 +13,12 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Half page up (centered)" })
 vim.keymap.set("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next buffer" })
 vim.keymap.set("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Previous buffer" })
 
--- Better Window Navigation
-vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })
-vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Move to bottom window" })
-vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Move to top window" })
-vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
-
 -- Splitting and Resizing
 vim.keymap.set("n", "<leader>sv", "<cmd>vsplit<cr>", { desc = "Split window vertically" })
 vim.keymap.set("n", "<leader>sh", "<cmd>split<cr>", { desc = "Split window horizontally" })
 vim.keymap.set("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
 vim.keymap.set("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
-vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Increase window width" })
+vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
 vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
 
 -- Better Indenting in Visual Mode
@@ -34,8 +28,12 @@ vim.keymap.set("v", ">", ">gv", { desc = "Indent right and reselect" })
 -- Better J Behavior
 vim.keymap.set("n", "J", "mzJ`z", { desc = "Join lines and keep cursor position" })
 
+-- Comment Toggle
+vim.keymap.set("n", "<leader>/", "gcc", { remap = true, desc = "Toggle comment" })
+vim.keymap.set("v", "<leader>/", "gc", { remap = true, desc = "Toggle comment" })
+
 -- Quick Config Editing
-vim.keymap.set("n", "<leader>rc", "<cmd>e ~/.config/init.lua<cr>", { desc = "Edit config" })
+vim.keymap.set("n", "<leader>rc", "<cmd>e ~/.config/nvim/init.lua<cr>", { desc = "Edit config" })
 
 -- Delete and Change Without Yanking
 vim.keymap.set({ "n", "v" }, "<leader>d", '"_d')
@@ -50,23 +48,10 @@ vim.keymap.set("n", "<leader>q", "<cmd>wqa!<cr>", { desc = "Save and quit" })
 
 -- Copy File Path
 vim.keymap.set("n", "<leader>pa", function()
-	local path = vim.fn.expand("%:p")
-	vim.fn.setreg("+", path)
-	print("file:", path)
+  local path = vim.fn.expand("%:p")
+  vim.fn.setreg("+", path)
+  print("file:", path)
 end, { desc = "Copy full file path" })
 
 -- Clear Highlights
 vim.keymap.set("n", "<esc>", "<cmd>noh<cr>")
-
--- Commenting
-vim.keymap.set("n", "gcc", "<leader>/", { desc = "Comment line" })
-vim.keymap.set("v", "gc", "<leader>/", { desc = "Comment block" })
-
--- LSP / Diagnostics
-vim.keymap.set("n", "<leader>gD", "<cmd>lua vim.lsp.buf.definition()<cr>") -- go to definition
-vim.keymap.set("n", "<leader>gI", "<cmd>lua vim.lsp.buf.implementation()<cr>") -- go to definition
-vim.keymap.set("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<cr>") -- code actions
-vim.keymap.set("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<cr>") -- rename symbol
-vim.keymap.set("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<cr>") -- previous diagnostics
-vim.keymap.set("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<cr>") -- next diagnostics
-vim.keymap.set("n", "<leader>K", "<cmd>lua vim.lsp.buf.hover()<cr>") -- hover docs
