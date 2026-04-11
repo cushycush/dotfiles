@@ -1,41 +1,41 @@
 return {
-  "MeanderingProgrammer/treesitter-modules.nvim",
-  config = function()
-    require("treesitter-modules").setup({
-      ensure_installed = {
-        "lua",
-        "python",
-        "bash",
-        "typescript",
-        "javascript",
-        "html",
-        "css",
-        "json",
-        "qmljs",
-        "yaml",
-        "go",
-        "markdown",
-        "dockerfile",
-        "markdown_inline",
-        "c",
-        "cpp",
-      },
-      auto_install = true,
-      sync_install = false,
-      highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = false,
-      },
-      indent = { enable = true },
-      incremental_selection = {
-        enable = true,
-        keymaps = {
-          init_selection = "<cr>",
-          node_incremental = "<cr>",
-          scope_incremental = "<tab>",
-          node_decremental = "<s-tab>",
-        },
-      },
-    })
-  end,
+	"MeanderingProgrammer/treesitter-modules.nvim",
+	config = function()
+		require("treesitter-modules").setup({
+			ensure_installed = {
+				"lua",
+				"python",
+				"bash",
+				"typescript",
+				"javascript",
+				"html",
+				"css",
+				"json",
+				"qmljs",
+				"yaml",
+				"go",
+				"markdown",
+				"dockerfile",
+				"markdown_inline",
+				"c",
+				"cpp",
+			},
+			auto_install = true,
+			sync_install = false,
+			highlight = {
+				enable = true,
+				additional_vim_regex_highlighting = false,
+			},
+			indent = { enable = true },
+			incremental_selection = {
+				enable = true,
+				keymaps = {
+					init_selection = "<cr>",
+					node_incremental = "<cr>",
+					scope_incremental = "<tab>",
+					node_decremental = "<s-tab>",
+				},
+			},
+		})
+	end,
 }
