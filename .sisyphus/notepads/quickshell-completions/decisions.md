@@ -1,0 +1,1 @@
+- 2026-04-11: Kept `automatic_enable = false` in mason-lspconfig and filtered `vim.lsp.enable()` to skip non-Mason servers unless their configured command binary is executable, preserving current Mason-managed behavior while preparing for future external servers like `qmlls`.

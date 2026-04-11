@@ -1,0 +1,1 @@
+- 2026-04-11: NeoVim LSP server metadata can safely carry custom fields like `mason = false` if plugin setup filters Mason installs separately and strips the metadata before handing configs to `vim.lsp.config`.
