@@ -76,36 +76,52 @@ return {
 			end,
 		})
 
-		-- ============================================================================
-		-- LSP Configuration
-		-- ============================================================================
+	-- ============================================================================
+	-- LSP Configuration
+	-- ============================================================================
 
-		local on_attach = function(client, bufnr)
-			vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover documentation" })
+	local on_attach = function(client, bufnr)
+		vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover documentation" })
 
-			if client.supports_method("textDocument/inlayHint") then
-				vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-			end
+		if client.supports_method("textDocument/inlayHint") then
+			vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+		end
+	end
+
+	local enabled_servers = {}
+
+	for server, server_config in pairs(tools.servers) do
+		local base_config = vim.lsp.config[server]
+		if base_config and base_config.name then
+			local cfg = vim.tbl_deep_extend("force", {}, server_config)
+			cfg.mason = nil
+			cfg.on_attach = on_attach
+			vim.lsp.config[server] = vim.tbl_deep_extend("force", base_config, cfg)
 		end
 
-		local enabled_servers = {}
-
-		for server, server_config in pairs(tools.servers) do
-			local base_config = vim.lsp.config[server]
-			if base_config and base_config.name then
-				local cfg = vim.tbl_deep_extend("force", {}, server_config)
-				cfg.mason = nil
-				cfg.on_attach = on_attach
-				vim.lsp.config[server] = vim.tbl_deep_extend("force", base_config, cfg)
-			end
-
-			if server_config.mason ~= false then
-				table.insert(enabled_servers, server)
-			elseif base_config and base_config.cmd and base_config.cmd[1] and vim.fn.executable(base_config.cmd[1]) == 1 then
-				table.insert(enabled_servers, server)
-			end
+		if server_config.mason ~= false then
+			table.insert(enabled_servers, server)
+		elseif base_config and base_config.cmd and base_config.cmd[1] and vim.fn.executable(base_config.cmd[1]) == 1 then
+			table.insert(enabled_servers, server)
 		end
+	end
 
-		vim.lsp.enable(enabled_servers)
+	-- ============================================================================
+	-- Custom LSP Configurations (servers not in nvim-lspconfig)
+	-- ============================================================================
+
+	-- QML Language Server
+	if vim.fn.executable("qml-language-server") == 1 then
+		vim.lsp.config.qml = {
+			name = "qml",
+			cmd = { "qml-language-server" },
+			filetypes = { "qml" },
+			root_markers = { ".git" },
+			on_attach = on_attach,
+		}
+		table.insert(enabled_servers, "qml")
+	end
+
+	vim.lsp.enable(enabled_servers)
 	end,
 }

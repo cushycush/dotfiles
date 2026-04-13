@@ -46,6 +46,12 @@ M.servers = {
 	},
 	ts_ls = {},
 	yamlls = {},
+	qml = {
+		cmd = { "qml-language-server" },
+		filetypes = { "qml" },
+		root_markers = { ".git" },
+		mason = false,
+	},
 }
 
 M.formatters = {
