@@ -214,10 +214,51 @@ ShellRoot {
                                      ? Bar.Theme.alert : Bar.Theme.icon
                         }
                         C.VSep {}
-                        C.Module {
-                            icon: Bar.Icons.bell
+                        Text {
+                            id: bellIcon
+                            text: Bar.Icons.bell
+                            color: Bar.Theme.icon
+                            font.family: Bar.Theme.fontFamily
+                            font.pixelSize: Bar.Theme.iconSize
+                            verticalAlignment: Text.AlignVCenter
+
+                            // Two stacked rotation transforms so the hover tilt
+                            // and the click ring compose instead of fighting
+                            // for the single `rotation` property.
+                            transform: [
+                                Rotation {
+                                    origin.x: bellIcon.width / 2
+                                    origin.y: bellIcon.height / 2
+                                    angle: bellHover.hovered ? 45 : 0
+                                    Behavior on angle {
+                                        NumberAnimation { duration: 200; easing.type: Easing.OutCubic }
+                                    }
+                                },
+                                Rotation {
+                                    id: bellRing
+                                    origin.x: bellIcon.width / 2
+                                    origin.y: bellIcon.height / 2
+                                    angle: 0
+                                }
+                            ]
+
+                            HoverHandler { id: bellHover }
                             TapHandler {
-                                onTapped: Hyprland.dispatch("exec quickshell -p ~/dotfiles/Quickshell/notifications/shell.qml ipc call notifications toggle")
+                                onTapped: {
+                                    bellRingAnim.restart();
+                                    Hyprland.dispatch("exec quickshell -p ~/dotfiles/Quickshell/notifications/shell.qml ipc call notifications toggle");
+                                }
+                            }
+
+                            SequentialAnimation {
+                                id: bellRingAnim
+                                NumberAnimation { target: bellRing; property: "angle"; to: -28; duration: 70 }
+                                NumberAnimation { target: bellRing; property: "angle"; to:  28; duration: 110 }
+                                NumberAnimation { target: bellRing; property: "angle"; to: -20; duration: 100 }
+                                NumberAnimation { target: bellRing; property: "angle"; to:  20; duration: 90 }
+                                NumberAnimation { target: bellRing; property: "angle"; to: -12; duration: 80 }
+                                NumberAnimation { target: bellRing; property: "angle"; to:  12; duration: 70 }
+                                NumberAnimation { target: bellRing; property: "angle"; to:   0; duration: 60 }
                             }
                         }
                     }
