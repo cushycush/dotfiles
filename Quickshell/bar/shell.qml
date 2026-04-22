@@ -223,7 +223,18 @@ ShellRoot {
                             implicitWidth: bellIcon.implicitWidth
                             implicitHeight: bellIcon.implicitHeight
 
+                            // ringing: animation has exclusive rotation control.
+                            // suppressHover: post-click latch; bell stays level
+                            // even while the cursor is still on it, and only
+                            // re-engages the tilt when the cursor leaves and
+                            // returns.
                             property bool ringing: false
+                            property bool suppressHover: false
+
+                            Process {
+                                id: toggleNotifProc
+                                command: ["sh", "-c", "quickshell -p ~/dotfiles/Quickshell/notifications/shell.qml ipc call notifications toggle"]
+                            }
 
                             Text {
                                 id: bellIcon
@@ -234,12 +245,9 @@ ShellRoot {
                                 font.pixelSize: Bar.Theme.iconSize
                                 transformOrigin: Item.Center
 
-                                // Hover tilt is only authoritative when we're
-                                // not mid-ring; the ring animation takes over
-                                // the rotation property outright while it plays.
                                 Binding on rotation {
                                     when: !bellCell.ringing
-                                    value: bellHover.hovered ? 45 : 0
+                                    value: (bellHover.hovered && !bellCell.suppressHover) ? -45 : 0
                                 }
 
                                 Behavior on rotation {
@@ -248,11 +256,16 @@ ShellRoot {
                                 }
                             }
 
-                            HoverHandler { id: bellHover }
+                            HoverHandler {
+                                id: bellHover
+                                onHoveredChanged: {
+                                    if (!hovered) bellCell.suppressHover = false;
+                                }
+                            }
                             TapHandler {
                                 onTapped: {
                                     bellRingAnim.restart();
-                                    Hyprland.dispatch("exec quickshell -p ~/dotfiles/Quickshell/notifications/shell.qml ipc call notifications toggle");
+                                    toggleNotifProc.running = true;
                                 }
                             }
 
@@ -266,7 +279,14 @@ ShellRoot {
                                 NumberAnimation { target: bellIcon; property: "rotation"; to: -12; duration: 80 }
                                 NumberAnimation { target: bellIcon; property: "rotation"; to:  12; duration: 70 }
                                 NumberAnimation { target: bellIcon; property: "rotation"; to:   0; duration: 60 }
-                                ScriptAction { script: bellCell.ringing = false }
+                                ScriptAction {
+                                    script: {
+                                        bellCell.ringing = false;
+                                        // Stay level after the ring unless the
+                                        // user leaves and re-enters the bell.
+                                        if (bellHover.hovered) bellCell.suppressHover = true;
+                                    }
+                                }
                             }
                         }
                     }
