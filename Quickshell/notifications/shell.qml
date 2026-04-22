@@ -24,6 +24,16 @@ ShellRoot {
     // center. Ticks every 30s only while the center is visible.
     property double now: Date.now()
 
+    // Persistence paths. Following XDG base-dir spec: state that should
+    // survive reboots but isn't config goes in $XDG_STATE_HOME.
+    readonly property string stateDir: {
+        const xdg = Quickshell.env("XDG_STATE_HOME");
+        const home = Quickshell.env("HOME");
+        return (xdg && xdg.length > 0) ? (xdg + "/quickshell")
+                                       : (home + "/.local/state/quickshell");
+    }
+    readonly property string historyPath: stateDir + "/notifications.json"
+
     NotificationServer {
         id: server
         keepOnReload: false
@@ -44,6 +54,7 @@ ShellRoot {
                 timestamp: Date.now(),
             });
             while (history.count > root.historyLimit) history.remove(history.count - 1);
+            root.schedulePersist();
         }
     }
 
@@ -61,9 +72,81 @@ ShellRoot {
         onTriggered: {
             if (history.count === 0) { stop(); return; }
             history.remove(0);
+            root.schedulePersist();
         }
     }
     function clearHistory() { clearTimer.restart(); }
+
+    // ── Persistence ─────────────────────────────────────────────────────
+    Process {
+        id: mkdirProc
+        command: ["mkdir", "-p", root.stateDir]
+    }
+
+    FileView {
+        id: historyFile
+        path: root.historyPath
+        preload: true
+        // First-run miss isn't an error we want logged.
+        printErrors: false
+        onLoaded: root.loadHistoryFromDisk()
+        onLoadFailed: function(_err) { /* no saved history yet */ }
+    }
+
+    // Debounce writes: notification bursts (e.g. dismissing many at once)
+    // collapse to a single file write.
+    Timer {
+        id: persistTimer
+        interval: 300
+        repeat: false
+        onTriggered: root.persistHistory()
+    }
+
+    function schedulePersist() { persistTimer.restart(); }
+
+    function loadHistoryFromDisk() {
+        try {
+            const raw = historyFile.text();
+            if (!raw) return;
+            const arr = JSON.parse(raw);
+            if (!Array.isArray(arr)) return;
+            history.clear();
+            const n = Math.min(arr.length, root.historyLimit);
+            for (let i = 0; i < n; i++) {
+                const e = arr[i] || {};
+                history.append({
+                    appName:   String(e.appName || ""),
+                    summary:   String(e.summary || ""),
+                    body:      String(e.body    || ""),
+                    urgency:   e.urgency | 0,
+                    timestamp: Number(e.timestamp) || Date.now(),
+                });
+            }
+        } catch (err) {
+            console.warn("notifications: failed to load history:", err);
+        }
+    }
+
+    function persistHistory() {
+        try {
+            const arr = [];
+            for (let i = 0; i < history.count; i++) {
+                const e = history.get(i);
+                arr.push({
+                    appName:   e.appName,
+                    summary:   e.summary,
+                    body:      e.body,
+                    urgency:   e.urgency,
+                    timestamp: e.timestamp,
+                });
+            }
+            historyFile.setText(JSON.stringify(arr));
+        } catch (err) {
+            console.warn("notifications: failed to persist history:", err);
+        }
+    }
+
+    Component.onCompleted: mkdirProc.running = true;
 
     function formatTimeAgo(ts) {
         const secs = Math.floor((now - ts) / 1000);
@@ -388,7 +471,10 @@ ShellRoot {
                                     anchors.fill: parent
                                     hoverEnabled: true
                                     cursorShape: Qt.PointingHandCursor
-                                    onClicked: history.remove(entry.index)
+                                    onClicked: {
+                                        history.remove(entry.index);
+                                        root.schedulePersist();
+                                    }
                                 }
 
                                 ColumnLayout {
