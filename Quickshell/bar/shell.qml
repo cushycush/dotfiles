@@ -214,7 +214,12 @@ ShellRoot {
                                      ? Bar.Theme.alert : Bar.Theme.icon
                         }
                         C.VSep {}
-                        C.Module { icon: Bar.Icons.bell }
+                        C.Module {
+                            icon: Bar.Icons.bell
+                            TapHandler {
+                                onTapped: Hyprland.dispatch("exec quickshell -p ~/dotfiles/Quickshell/notifications/shell.qml ipc call notifications toggle")
+                            }
+                        }
                     }
                     Item { implicitWidth: Bar.Theme.superPillGap }
                     C.DotSep {}
