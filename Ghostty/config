@@ -62,4 +62,4 @@ adjust-underline-position = 2
 
 # Keybinds
 keybind = ctrl+shift+j=unbind
-keybind = shift+enter=text:\x1b\r # Newline instead of sending input
+keybind = shift+enter=text:\x1b\r
