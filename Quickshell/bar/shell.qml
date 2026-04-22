@@ -69,7 +69,7 @@ ShellRoot {
                     spacing: Bar.Theme.segGap
                     C.SegmentPill {
                         roundLeft: true;  roundRight: false
-                        C.Module { icon: Bar.Icons.clock; label: clock.time }
+                        C.Module { icon: Bar.Icons.clock; label: clock.time; iconSize: Bar.Theme.iconSize - 2 }
                     }
                     C.SegmentPill {
                         roundLeft: false; roundRight: false
