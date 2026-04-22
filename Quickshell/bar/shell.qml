@@ -214,33 +214,39 @@ ShellRoot {
                                      ? Bar.Theme.alert : Bar.Theme.icon
                         }
                         C.VSep {}
-                        Text {
-                            id: bellIcon
-                            text: Bar.Icons.bell
-                            color: Bar.Theme.icon
-                            font.family: Bar.Theme.fontFamily
-                            font.pixelSize: Bar.Theme.iconSize
-                            verticalAlignment: Text.AlignVCenter
 
-                            // Two stacked rotation transforms so the hover tilt
-                            // and the click ring compose instead of fighting
-                            // for the single `rotation` property.
-                            transform: [
-                                Rotation {
-                                    origin.x: bellIcon.width / 2
-                                    origin.y: bellIcon.height / 2
-                                    angle: bellHover.hovered ? 45 : 0
-                                    Behavior on angle {
-                                        NumberAnimation { duration: 200; easing.type: Easing.OutCubic }
-                                    }
-                                },
-                                Rotation {
-                                    id: bellRing
-                                    origin.x: bellIcon.width / 2
-                                    origin.y: bellIcon.height / 2
-                                    angle: 0
+                        // Non-rotating cell owns hit testing; the inner Text
+                        // rotates purely visually. Keeps hover/tap events
+                        // stable regardless of where the glyph has tilted.
+                        Item {
+                            id: bellCell
+                            implicitWidth: bellIcon.implicitWidth
+                            implicitHeight: bellIcon.implicitHeight
+
+                            property bool ringing: false
+
+                            Text {
+                                id: bellIcon
+                                anchors.centerIn: parent
+                                text: Bar.Icons.bell
+                                color: Bar.Theme.icon
+                                font.family: Bar.Theme.fontFamily
+                                font.pixelSize: Bar.Theme.iconSize
+                                transformOrigin: Item.Center
+
+                                // Hover tilt is only authoritative when we're
+                                // not mid-ring; the ring animation takes over
+                                // the rotation property outright while it plays.
+                                Binding on rotation {
+                                    when: !bellCell.ringing
+                                    value: bellHover.hovered ? 45 : 0
                                 }
-                            ]
+
+                                Behavior on rotation {
+                                    enabled: !bellCell.ringing
+                                    NumberAnimation { duration: 200; easing.type: Easing.OutCubic }
+                                }
+                            }
 
                             HoverHandler { id: bellHover }
                             TapHandler {
@@ -252,13 +258,15 @@ ShellRoot {
 
                             SequentialAnimation {
                                 id: bellRingAnim
-                                NumberAnimation { target: bellRing; property: "angle"; to: -28; duration: 70 }
-                                NumberAnimation { target: bellRing; property: "angle"; to:  28; duration: 110 }
-                                NumberAnimation { target: bellRing; property: "angle"; to: -20; duration: 100 }
-                                NumberAnimation { target: bellRing; property: "angle"; to:  20; duration: 90 }
-                                NumberAnimation { target: bellRing; property: "angle"; to: -12; duration: 80 }
-                                NumberAnimation { target: bellRing; property: "angle"; to:  12; duration: 70 }
-                                NumberAnimation { target: bellRing; property: "angle"; to:   0; duration: 60 }
+                                ScriptAction { script: bellCell.ringing = true }
+                                NumberAnimation { target: bellIcon; property: "rotation"; to: -28; duration: 70 }
+                                NumberAnimation { target: bellIcon; property: "rotation"; to:  28; duration: 110 }
+                                NumberAnimation { target: bellIcon; property: "rotation"; to: -20; duration: 100 }
+                                NumberAnimation { target: bellIcon; property: "rotation"; to:  20; duration: 90 }
+                                NumberAnimation { target: bellIcon; property: "rotation"; to: -12; duration: 80 }
+                                NumberAnimation { target: bellIcon; property: "rotation"; to:  12; duration: 70 }
+                                NumberAnimation { target: bellIcon; property: "rotation"; to:   0; duration: 60 }
+                                ScriptAction { script: bellCell.ringing = false }
                             }
                         }
                     }
