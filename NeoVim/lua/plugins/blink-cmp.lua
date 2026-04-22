@@ -20,7 +20,6 @@ return {
 			},
 			per_filetype = {
 				qml = {
-					"quickshell",
 					"lsp",
 					"path",
 					"snippets",
@@ -32,11 +31,6 @@ return {
 					name = "LazyDev",
 					module = "lazydev.integrations.blink",
 					score_offset = 100,
-				},
-				quickshell = {
-					name = "Quickshell",
-					module = "quickshell-completions.blink",
-					score_offset = 90,
 				},
 				snippets = {
 					opts = {

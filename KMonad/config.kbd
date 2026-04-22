@@ -21,7 +21,7 @@ fallthrough true)
 
 ;; Button definitions
 (defalias 
-  esc (tap-hold 200 esc lctrl)
+  esc (tap-hold-next 200 esc lctrl)
   vim (layer-toggle vim)
 )
 

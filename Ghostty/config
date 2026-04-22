@@ -1,5 +1,5 @@
-# Default shell
-command = /usr/bin/fish
+# Default shell — launches/attaches a shared tmux session
+command = /home/cush/dotfiles/Tmux/start-session.sh
 
 # Dynamic theme colors
 config-file = "~/.config/ghostty/themes/nordic.conf"
@@ -24,10 +24,11 @@ font-feature = "ss17"
 window-theme = ghostty
 window-padding-x = 0
 window-padding-y = 0
+window-padding-balance = true
 confirm-close-surface=false
 resize-overlay = never
 gtk-toolbar-style = flat
-background-opacity = 0.9
+background-opacity = 1.0
 
 # Cursor styling
 cursor-style = "block"
