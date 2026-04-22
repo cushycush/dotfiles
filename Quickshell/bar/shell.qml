@@ -73,7 +73,7 @@ ShellRoot {
                     }
                     C.SegmentPill {
                         roundLeft: false; roundRight: false
-                        C.Module { label: clock.dayName }
+                        C.Module { icon: Bar.Icons.weekday; label: clock.dayName }
                     }
                     C.SegmentPill {
                         roundLeft: false; roundRight: true
