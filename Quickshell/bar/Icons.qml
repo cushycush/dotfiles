@@ -32,4 +32,5 @@ QtObject {
     readonly property string fire:      String.fromCodePoint(0xF0238)  // mdi-fire — GPU temp
     readonly property string speedo:    String.fromCodePoint(0xF04C5)  // mdi-speedometer — GPU util
     readonly property string gpu:       String.fromCodePoint(0xF1BEB)  // mdi-expansion-card-variant
+    readonly property string search:    String.fromCodePoint(0xF002)   // fa-search
 }
