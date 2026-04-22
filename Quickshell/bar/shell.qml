@@ -17,6 +17,7 @@ ShellRoot {
 
     C.SystemInfo { id: sys }
     C.Clock      { id: clock }
+    C.GitHub     { id: gh }
 
     // Notification shell writes its DND flag and unread count to this
     // file; we watch for changes instead of polling via IPC.
@@ -354,9 +355,17 @@ ShellRoot {
                     C.DotSep {}
                     Item { implicitWidth: Bar.Theme.superPillGap }
                     C.SegmentPill {
-                        C.Module { icon: Bar.Icons.github;    label: "0" }
+                        C.Module {
+                            icon: Bar.Icons.github
+                            label: gh.issueCount < 0 ? "–" : gh.issueCount.toString()
+                            labelColor: gh.issueCount > 0 ? Bar.Theme.text : Bar.Theme.textMuted
+                        }
                         C.VSep {}
-                        C.Module { icon: Bar.Icons.github_pr; label: "0" }
+                        C.Module {
+                            icon: Bar.Icons.github_pr
+                            label: gh.prCount < 0 ? "–" : gh.prCount.toString()
+                            labelColor: gh.prCount > 0 ? Bar.Theme.text : Bar.Theme.textMuted
+                        }
                     }
                 }
             }
