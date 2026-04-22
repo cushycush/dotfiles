@@ -18,6 +18,41 @@ ShellRoot {
     C.SystemInfo { id: sys }
     C.Clock      { id: clock }
 
+    // Notification shell writes its DND flag and unread count to this
+    // file; we watch for changes instead of polling via IPC.
+    readonly property string notifStatePath: {
+        const xdg = Quickshell.env("XDG_STATE_HOME");
+        const home = Quickshell.env("HOME");
+        const base = (xdg && xdg.length > 0) ? xdg : (home + "/.local/state");
+        return base + "/quickshell/notif-state.json";
+    }
+
+    property bool notifDnd: false
+    property int  notifUnread: 0
+
+    FileView {
+        id: notifStateFile
+        path: root.notifStatePath
+        watchChanges: true
+        preload: true
+        printErrors: false
+        onLoaded: root.readNotifState()
+        onFileChanged: reload()
+        onLoadFailed: function(_err) { /* file doesn't exist yet */ }
+    }
+
+    function readNotifState() {
+        try {
+            const raw = notifStateFile.text();
+            if (!raw) return;
+            const obj = JSON.parse(raw);
+            if (obj && typeof obj === "object") {
+                root.notifDnd    = !!obj.dnd;
+                root.notifUnread = Number(obj.unread) | 0;
+            }
+        } catch (_) { /* ignore */ }
+    }
+
     // ── Top bar (one per screen) ─────────────────────────────────────────
     Variants {
         model: Quickshell.screens
@@ -239,12 +274,16 @@ ShellRoot {
                                 // (e.g. via `setsid -f` during dev reload).
                                 command: ["/bin/sh", "-c", "quickshell -p ~/dotfiles/Quickshell/notifications/shell.qml ipc --any-display call notifications toggle"]
                             }
+                            Process {
+                                id: dndToggleProc
+                                command: ["/bin/sh", "-c", "quickshell -p ~/dotfiles/Quickshell/notifications/shell.qml ipc --any-display call notifications dndToggle"]
+                            }
 
                             Text {
                                 id: bellIcon
                                 anchors.centerIn: parent
-                                text: Bar.Icons.bell
-                                color: Bar.Theme.icon
+                                text: root.notifDnd ? Bar.Icons.bellOff : Bar.Icons.bell
+                                color: root.notifDnd ? Bar.Theme.textMuted : Bar.Theme.icon
                                 font.family: Bar.Theme.fontFamily
                                 font.pixelSize: Bar.Theme.iconSize
                                 transformOrigin: Item.Center
@@ -260,6 +299,19 @@ ShellRoot {
                                 }
                             }
 
+                            // Unread dot — sibling of bellIcon so it stays
+                            // pinned to the cell's top-right while the bell
+                            // tilts or rings underneath it.
+                            Rectangle {
+                                visible: root.notifUnread > 0 && !root.notifDnd
+                                width: 7; height: 7; radius: 3.5
+                                color: Bar.Theme.alert
+                                border.color: Bar.Theme.bg
+                                border.width: 1
+                                x: bellIcon.x + bellIcon.implicitWidth  - width + 1
+                                y: bellIcon.y - 1
+                            }
+
                             HoverHandler {
                                 id: bellHover
                                 onHoveredChanged: {
@@ -271,6 +323,10 @@ ShellRoot {
                                     bellRingAnim.restart();
                                     toggleNotifProc.running = true;
                                 }
+                            }
+                            TapHandler {
+                                acceptedButtons: Qt.RightButton
+                                onTapped: dndToggleProc.running = true
                             }
 
                             SequentialAnimation {

@@ -20,6 +20,13 @@ ShellRoot {
 
     property bool centerOpen: false
 
+    // Do-not-disturb: suppresses toasts; history still accrues.
+    property bool dnd: false
+
+    // Unread counter since the center was last opened — drives the bell
+    // badge in the bar. Reset on `centerOpen` → true.
+    property int unread: 0
+
     // Current wall-clock time used to recompute relative timestamps in the
     // center. Ticks every 30s only while the center is visible.
     property double now: Date.now()
@@ -33,6 +40,9 @@ ShellRoot {
                                        : (home + "/.local/state/quickshell");
     }
     readonly property string historyPath: stateDir + "/notifications.json"
+    // Separate file: changes on DND toggle / unread tick, watched by the
+    // bar so the bell reflects state without polling or IPC churn.
+    readonly property string statePath:   stateDir + "/notif-state.json"
 
     NotificationServer {
         id: server
@@ -45,7 +55,9 @@ ShellRoot {
         persistenceSupported: false
 
         onNotification: (n) => {
-            n.tracked = true;
+            // When DND is on we skip the toast (don't track) but still
+            // keep the entry in history so the user can review later.
+            n.tracked = !root.dnd;
             history.insert(0, {
                 appName:   n.appName || "",
                 summary:   n.summary || "",
@@ -54,7 +66,9 @@ ShellRoot {
                 timestamp: Date.now(),
             });
             while (history.count > root.historyLimit) history.remove(history.count - 1);
+            root.unread += 1;
             root.schedulePersist();
+            root.persistState();
         }
     }
 
@@ -146,6 +160,42 @@ ShellRoot {
         }
     }
 
+    // Small, frequently-updated state file (DND flag + unread count).
+    // The bar watches this to drive the bell icon/badge.
+    FileView {
+        id: stateFile
+        path: root.statePath
+        preload: true
+        printErrors: false
+        onLoaded: root.loadStateFromDisk()
+        onLoadFailed: function(_err) { /* first run */ }
+    }
+
+    function loadStateFromDisk() {
+        try {
+            const raw = stateFile.text();
+            if (!raw) return;
+            const obj = JSON.parse(raw);
+            if (obj && typeof obj === "object") {
+                root.dnd    = !!obj.dnd;
+                root.unread = Number(obj.unread) | 0;
+            }
+        } catch (err) {
+            console.warn("notifications: failed to load state:", err);
+        }
+    }
+
+    function persistState() {
+        try {
+            stateFile.setText(JSON.stringify({
+                dnd:    root.dnd,
+                unread: root.unread,
+            }));
+        } catch (err) {
+            console.warn("notifications: failed to persist state:", err);
+        }
+    }
+
     Component.onCompleted: mkdirProc.running = true;
 
     function formatTimeAgo(ts) {
@@ -158,10 +208,21 @@ ShellRoot {
 
     IpcHandler {
         target: "notifications"
-        function toggle() { root.centerOpen = !root.centerOpen; }
-        function open()   { root.centerOpen = true; }
-        function close()  { root.centerOpen = false; }
-        function clear()  { root.clearHistory(); }
+        function toggle()    { root.centerOpen = !root.centerOpen; }
+        function open()      { root.centerOpen = true; }
+        function close()     { root.centerOpen = false; }
+        function clear()     { root.clearHistory(); }
+        function dndToggle() { root.dnd = !root.dnd; root.persistState(); }
+        function dndOn()     { root.dnd = true;  root.persistState(); }
+        function dndOff()    { root.dnd = false; root.persistState(); }
+    }
+
+    // Opening the center acknowledges every pending notification.
+    onCenterOpenChanged: {
+        if (centerOpen && unread !== 0) {
+            unread = 0;
+            persistState();
+        }
     }
 
     // ── Toast stack ─────────────────────────────────────────────────────

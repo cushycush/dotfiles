@@ -24,6 +24,7 @@ QtObject {
     readonly property string volLow:    String.fromCodePoint(0xF057F)  // mdi-volume-low
     readonly property string volMute:   String.fromCodePoint(0xF075F)  // mdi-volume-mute
     readonly property string bell:      String.fromCodePoint(0xF009A)  // mdi-bell
+    readonly property string bellOff:   String.fromCodePoint(0xF009B)  // mdi-bell-off
     readonly property string github:    String.fromCodePoint(0xF02A4)  // mdi-github
     readonly property string rss:       String.fromCodePoint(0xF033B)  // mdi-rss
     readonly property string headphones: String.fromCodePoint(0xF02CB) // mdi-headphones
