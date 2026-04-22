@@ -9,7 +9,6 @@ QtObject {
     readonly property string memory:    String.fromCodePoint(0xF035B)  // mdi-memory
     readonly property string thermo:    String.fromCodePoint(0xF050F)  // mdi-thermometer
     readonly property string clock:     String.fromCodePoint(0xF150A)  // mdi-clock-outline
-    readonly property string alarm:     String.fromCodePoint(0xF0020)  // mdi-alarm
     readonly property string calendar:  String.fromCodePoint(0xF00ED)  // mdi-calendar
     readonly property string disk:      String.fromCodePoint(0xF02CA)  // mdi-harddisk
     readonly property string battery:   String.fromCodePoint(0xF0079)  // mdi-battery

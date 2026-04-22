@@ -5,6 +5,7 @@ QtObject {
     id: clock
     property string time: ""
     property string date: ""
+    property string dayName: ""
 
     property Timer timer: Timer {
         interval: 1000
@@ -13,8 +14,9 @@ QtObject {
         triggeredOnStart: true
         onTriggered: {
             const now = new Date();
-            clock.time = Qt.formatDateTime(now, "HH:mm");
+            clock.time = Qt.formatDateTime(now, "h:mm AP");
             clock.date = Qt.formatDateTime(now, "d MMMM");
+            clock.dayName = Qt.formatDateTime(now, "dddd");
         }
     }
 }

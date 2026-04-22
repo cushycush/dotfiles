@@ -64,7 +64,7 @@ ShellRoot {
 
                 Item { Layout.fillWidth: true }
 
-                // ── Center segmented super-pill: [time)  (alarm)  (date]
+                // ── Center segmented super-pill: [time)  (day)  (date]
                 RowLayout {
                     spacing: Bar.Theme.segGap
                     C.SegmentPill {
@@ -73,7 +73,7 @@ ShellRoot {
                     }
                     C.SegmentPill {
                         roundLeft: false; roundRight: false
-                        C.Module { icon: Bar.Icons.alarm; label: "14:00 2h" }
+                        C.Module { label: clock.dayName }
                     }
                     C.SegmentPill {
                         roundLeft: false; roundRight: true
