@@ -233,7 +233,11 @@ ShellRoot {
 
                             Process {
                                 id: toggleNotifProc
-                                command: ["sh", "-c", "quickshell -p ~/dotfiles/Quickshell/notifications/shell.qml ipc call notifications toggle"]
+                                // --any-display so the lookup finds the
+                                // notifications instance even when it was
+                                // launched with no attached Wayland display
+                                // (e.g. via `setsid -f` during dev reload).
+                                command: ["/bin/sh", "-c", "quickshell -p ~/dotfiles/Quickshell/notifications/shell.qml ipc --any-display call notifications toggle"]
                             }
 
                             Text {
