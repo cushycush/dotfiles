@@ -42,6 +42,13 @@ ShellRoot {
         onLoadFailed: function(_err) { /* file doesn't exist yet */ }
     }
 
+    // One-shot process wrapper for IPC calls fired from bar widgets.
+    Process {
+        id: openSettingsProc
+        command: ["/bin/sh", "-c",
+            "quickshell -p ~/dotfiles/Quickshell/settings/shell.qml ipc --any-display call settings toggle"]
+    }
+
     function readNotifState() {
         try {
             const raw = notifStateFile.text();
@@ -244,6 +251,10 @@ ShellRoot {
                             TapHandler {
                                 enabled: sys.btAvailable
                                 onTapped: sys.toggleBluetooth()
+                            }
+                            TapHandler {
+                                acceptedButtons: Qt.RightButton
+                                onTapped: openSettingsProc.running = true
                             }
                         }
                         C.VSep {}
