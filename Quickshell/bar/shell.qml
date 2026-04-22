@@ -231,7 +231,21 @@ ShellRoot {
                 RowLayout {
                     spacing: 0
                     C.SegmentPill {
-                        C.Module { icon: Bar.Icons.bluetooth }
+                        C.Module {
+                            icon: !sys.btAvailable        ? Bar.Icons.bluetoothOff
+                                : !sys.btPowered          ? Bar.Icons.bluetoothOff
+                                : sys.btDevice.length > 0 ? Bar.Icons.bluetoothConnected
+                                :                           Bar.Icons.bluetooth
+                            iconColor: !sys.btAvailable        ? Bar.Theme.textMuted
+                                     : !sys.btPowered          ? Bar.Theme.textMuted
+                                     : sys.btDevice.length > 0 ? Bar.Theme.accent
+                                     :                           Bar.Theme.icon
+                            label: sys.btDevice
+                            TapHandler {
+                                enabled: sys.btAvailable
+                                onTapped: sys.toggleBluetooth()
+                            }
+                        }
                         C.VSep {}
                         C.Module {
                             icon: sys.volumeMuted         ? Bar.Icons.volMute

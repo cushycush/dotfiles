@@ -22,6 +22,9 @@ QtObject {
     property int    volumePercent: 0
     property bool   volumeMuted: false
     property string diskUsedPercent: "0%"
+    property bool   btAvailable: false
+    property bool   btPowered: false
+    property string btDevice: ""
 
     // Internal CPU sampling state
     property int _lastCpuIdle: 0
@@ -154,6 +157,36 @@ QtObject {
         }
     }
 
+    property Process btProc: Process {
+        // Emits "<available>|<powered>|<first-connected-device>" on one
+        // line. Missing bluetoothctl → "no|no|". No controller → same.
+        command: ["sh", "-c",
+            "if ! command -v bluetoothctl >/dev/null 2>&1; then echo 'no|no|'; exit; fi; " +
+            "show=$(bluetoothctl show 2>/dev/null); " +
+            "if [ -z \"$show\" ]; then echo 'no|no|'; exit; fi; " +
+            "pw=$(printf '%s\\n' \"$show\" | awk '/Powered:/ {print $2; exit}'); " +
+            "dev=$(bluetoothctl devices Connected 2>/dev/null | head -1 | cut -d' ' -f3- | tr -d '\\n'); " +
+            "echo \"yes|${pw:-no}|${dev}\""]
+        stdout: SplitParser {
+            onRead: data => {
+                const parts = data.trim().split("|");
+                sys.btAvailable = parts[0] === "yes";
+                sys.btPowered   = parts[1] === "yes";
+                sys.btDevice    = parts[2] || "";
+            }
+        }
+    }
+
+    // Toggle power and immediately refresh so the icon follows.
+    property Process btToggleProc: Process {
+        command: ["sh", "-c",
+            "pw=$(bluetoothctl show 2>/dev/null | awk '/Powered:/ {print $2; exit}'); " +
+            "if [ \"$pw\" = \"yes\" ]; then bluetoothctl power off; " +
+            "else bluetoothctl power on; fi"]
+        onExited: sys.btProc.running = true
+    }
+    function toggleBluetooth() { btToggleProc.running = true; }
+
     // Tickers -------------------------------------------------------------
     property Timer fastTimer: Timer {
         interval: 2000
@@ -178,6 +211,7 @@ QtObject {
             sys.batProc.running = true;
             sys.wifiProc.running = true;
             sys.diskProc.running = true;
+            sys.btProc.running = true;
         }
     }
 }

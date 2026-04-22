@@ -18,7 +18,9 @@ QtObject {
     readonly property string wifiOff:   String.fromCodePoint(0xF05AA)  // mdi-wifi-off
     readonly property string down:      String.fromCodePoint(0xF0045)  // mdi-arrow-down
     readonly property string up:        String.fromCodePoint(0xF005D)  // mdi-arrow-up
-    readonly property string bluetooth: String.fromCodePoint(0xF00AF)  // mdi-bluetooth
+    readonly property string bluetooth:          String.fromCodePoint(0xF00AF)  // mdi-bluetooth
+    readonly property string bluetoothOff:       String.fromCodePoint(0xF00B2)  // mdi-bluetooth-off
+    readonly property string bluetoothConnected: String.fromCodePoint(0xF00B1)  // mdi-bluetooth-connect
     readonly property string volHigh:   String.fromCodePoint(0xF057E)  // mdi-volume-high
     readonly property string volMed:    String.fromCodePoint(0xF0580)  // mdi-volume-medium
     readonly property string volLow:    String.fromCodePoint(0xF057F)  // mdi-volume-low
