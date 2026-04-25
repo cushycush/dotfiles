@@ -16,8 +16,10 @@ set -l out "$root/assets/screenshots"
 mkdir -p "$out"
 
 function _grab_full
-    grim "$out/$argv[1].png"
-    echo "  saved $out/$argv[1].png"
+    set -l name $argv[1]
+    set -l extra $argv[2..-1]
+    grim $extra "$out/$name.png"
+    echo "  saved $out/$name.png"
 end
 
 function _grab_region
@@ -53,8 +55,8 @@ function _step
 end
 
 function shot_desktop
-    if _step desktop "Compose a clean desktop. Show your wallpaper, the bar, maybe a focused window or two. Hit enter to capture the full output."
-        _grab_full desktop
+    if _step desktop "Compose a clean desktop on DP-3. Show your wallpaper, the bar, maybe a focused window or two. Cursor will be hidden. Hit enter to capture."
+        _grab_full desktop -o DP-3 -c
     end
 end
 

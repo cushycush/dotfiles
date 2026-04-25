@@ -6,6 +6,8 @@ by purpose and the symlinks managed by [`store`](https://github.com/cushycush/st
 
 ![hero](assets/screenshots/desktop.png)
 
+![hyprlock](assets/screenshots/lock.png)
+
 ## What you're looking at
 
 ```
@@ -22,20 +24,6 @@ font          MonoLisa Nerd + Phosphor icons
 palette       Nord         (#242933 base, nord13 yellow accents)
 wallpaper     awww
 ```
-
-## Tour
-
-| Bar | Terminal |
-| --- | --- |
-| ![bar](assets/screenshots/bar.png) | ![ghostty](assets/screenshots/terminal.png) |
-
-| Neovim | Launcher |
-| --- | --- |
-| ![neovim](assets/screenshots/neovim.png) | ![rofi](assets/screenshots/rofi.png) |
-
-| Notifications | Lock |
-| --- | --- |
-| ![swaync](assets/screenshots/notifications.png) | ![hyprlock](assets/screenshots/lock.png) |
 
 ## Layout
 
