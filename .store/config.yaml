@@ -8,28 +8,27 @@ stores:
             target: /home/cush/.config/rofi/
         waybar:
             target: /home/cush/.config/waybar
-
     editors:
         neovim:
             target: /home/cush/.config/nvim
-
     fonts:
         fontconfig:
             target: ~/.config/fontconfig
-
+    kmonad:
+        target: /home/cush/.config/kmonad
     shells:
         fish:
             target: /home/cush/.config/fish/
         nushell:
             target: /home/cush/.config/nushell
-
     terminals:
         ghostty:
             target: /home/cush/.config/ghostty
         tmux:
             target: /home/cush/.config/tmux
-
     tools:
+        btop:
+            target: ~/.config/btop
         gh:
             target: ~/.config/gh
             files:
@@ -42,6 +41,3 @@ stores:
             target: ~/.config/lazygit
         mise:
             target: ~/.config/mise
-
-    kmonad:
-        target: /home/cush/.config/kmonad
