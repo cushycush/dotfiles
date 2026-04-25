@@ -1,5 +1,5 @@
 # Default shell — launches/attaches a shared tmux session
-command = /home/cush/dotfiles/Tmux/start-session.sh
+command = /home/cush/dotfiles/terminals/tmux/start-session.sh
 
 # Dynamic theme colors
 config-file = "~/.config/ghostty/themes/nordic.conf"
