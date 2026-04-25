@@ -2,46 +2,120 @@
 
 ## Repository Overview
 
-Personal dotfiles for a Linux (Hyprland) desktop environment. Primary component is a
-NeoVim configuration using lazy.nvim as the plugin manager. Other configs: Ghostty
-(terminal), Hyprland (compositor), Tmux, Fish shell, KMonad, Waybar, Rofi, Quickshell,
-Nushell.
+Personal dotfiles for a Linux (Hyprland) desktop environment. Symlinks under
+`~/.config/` are managed by [`store`](https://github.com/cushycush/store);
+package install state is managed by its companion `stock`. Both read from
+`.store/` at the repo root.
+
+Naming convention: kebab-case for everything authored here. Upstream
+directories (e.g. `quickshell/HyprQuickFrame/`) keep their original case.
 
 ## Repository Structure
 
 ```
 dotfiles/
-├── NeoVim/              # Main NeoVim config (symlinked to ~/.config/nvim)
-│   ├── init.lua          # Entry point - just requires config.lazy
-│   ├── lua/
-│   │   ├── config/       # Core NeoVim settings
-│   │   │   ├── lazy.lua      # lazy.nvim bootstrap + plugin loader
-│   │   │   ├── options.lua   # vim.opt settings
-│   │   │   ├── globals.lua   # vim.g settings (leader = space)
-│   │   │   ├── keymaps.lua   # Global keybindings
-│   │   │   ├── autocmds.lua  # Autocommands
-│   │   │   ├── highlights.lua # Custom highlight overrides
-│   │   │   └── lsp/
-│   │   │       ├── tools.lua      # Central LSP/formatter/linter registry
-│   │   │       └── diagnostics.lua # Diagnostic display config
-│   │   ├── plugins/      # One file per plugin (lazy.nvim spec format)
-│   │   │   └── themes/   # Theme plugin specs
-│   │   └── utils/        # Shared utility modules
-│   │       ├── neovim.lua    # Buffer/window/highlight helpers
-│   │       └── chars.lua     # Unicode chars, border styles, icons
-│   └── native/           # Non-plugin NeoVim modules
-│       ├── lsp.lua        # Diagnostic navigation, format-on-save
-│       └── themes/
-├── Ghostty/             # Ghostty terminal config
-├── Hyprland/            # Hyprland compositor config
-├── Tmux/                # Tmux config
-├── Shells/Fish/         # Fish shell config
-├── KMonad/              # Keyboard remapping
-├── Waybar/              # Status bar
-├── Rofi/                # App launcher
-├── Quickshell/          # Shell widgets
-└── Nushell/             # Nushell config
+├── desktop/            # Wayland desktop UX
+│   ├── hyprland/       # compositor + lock screen + module includes
+│   ├── quickshell/     # shell widgets (HyprQuickFrame submodule kept upstream-named)
+│   ├── rofi/           # launcher
+│   └── waybar/         # bar
+├── editors/
+│   └── neovim/         # see "NeoVim layout" below
+├── fonts/
+│   └── fontconfig/     # font fallback rules
+├── shells/
+│   ├── fish/           # primary shell config + fisher-managed plugins
+│   └── nushell/
+├── terminals/
+│   ├── ghostty/        # terminal + GLSL shaders + themes
+│   └── tmux/           # tmux.conf + TPM-managed plugins
+├── tools/              # CLI / TUI tool configs
+│   ├── gh/             # config.yml only; hosts.yml stays out (auth token)
+│   ├── glow/
+│   ├── htop/
+│   ├── lazygit/
+│   └── mise/
+├── kmonad/             # keyboard remapping daemon (no peer; lives at top level)
+└── .store/
+    ├── config.yaml     # store: name -> ~/.config target mapping
+    ├── packages.yaml   # stock: install groups (base, desktop, dev, ...)
+    └── secrets.enc     # store-encrypted env secrets (created on first secret set)
 ```
+
+### NeoVim layout (`editors/neovim/`)
+
+```
+editors/neovim/
+├── init.lua            # entry point - requires config.lazy
+├── lua/
+│   ├── config/         # core settings
+│   │   ├── lazy.lua    # lazy.nvim bootstrap + plugin loader
+│   │   ├── options.lua # vim.opt settings
+│   │   ├── globals.lua # vim.g (leader = space)
+│   │   ├── keymaps.lua # global bindings
+│   │   ├── autocmds.lua
+│   │   ├── highlights.lua
+│   │   └── lsp/
+│   │       ├── tools.lua        # central LSP/formatter/linter registry
+│   │       └── diagnostics.lua  # diagnostic display
+│   ├── plugins/        # one file per plugin (lazy.nvim spec)
+│   │   └── themes/
+│   └── utils/
+│       ├── neovim.lua  # buffer/window helpers
+│       └── chars.lua   # unicode chars, borders, icons
+└── native/             # non-plugin modules
+    ├── lsp.lua         # diagnostic nav, format-on-save
+    └── themes/
+```
+
+## store and stock
+
+```bash
+store status              # show all symlinks and their state
+store apply               # reconcile ~/.config symlinks from .store/config.yaml
+store rename <old> <new>  # rename a store, re-link all targets
+store adopt <path>        # move ~/.config/<x> into the repo and symlink it back
+store secret set <NAME>   # set an encrypted env-secret (interactive passphrase)
+
+stock doctor              # check declared vs installed
+stock diff                # preview install changes
+stock install [group...]  # install missing packages from a group
+```
+
+`stock` groups live in `.store/packages.yaml`: `base`, `network`, `bluetooth`,
+`audio`, `gpu`, `desktop`, `fonts`, `terminals`, `dev`, `apps`, `printing`,
+`flatpak`. Each runs whichever package manager is available (`pacman` here).
+
+## Secrets
+
+Encrypted env vars live in `.store/secrets.enc`. To populate:
+
+```bash
+store secret set ANTHROPIC_API_KEY   # repeat for each name below
+```
+
+Tracked names:
+`ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, `GITHUB_TOKEN`, `NPM_TOKEN`, `VERCEL_TOKEN`.
+
+To export them into a fish shell, run `load-secrets`. The function prompts once
+for the store passphrase and exports whichever of the named secrets are set.
+It is not auto-loaded; interactive shells would otherwise prompt on every
+startup.
+
+## Known limitations
+
+`store apply` walks every file in each store and renders it as a Go template
+before it stages symlinks. Two files in this repo contain literal `{{ ... }}`
+that breaks the renderer:
+
+- `shells/fish/conf.d/abbr_tips.fish`: the fish-abbreviation-tips plugin uses
+  `{{ .abbr }}` and `{{ .cmd }}` as its own placeholders.
+
+Workaround: existing dir-level symlinks survive the render error, so things
+keep working. To rename `shells/fish` itself, do it manually (`git mv` plus
+`ln -sfn`) instead of `store rename` so the symlink updates atomically.
+
+Upstream `vim-tmux-navigator/.github/` was removed for the same reason.
 
 ## Build / Lint / Test Commands
 
@@ -50,17 +124,17 @@ This is a dotfiles repo - there is no build system, test suite, or CI.
 ### Lua Linting
 
 ```bash
-# luacheck is configured via NeoVim/.luacheckrc
-luacheck NeoVim/lua/
+# luacheck is configured via editors/neovim/.luacheckrc
+luacheck editors/neovim/lua/
 
-# lua-language-server uses NeoVim/.luarc.json
+# lua-language-server uses editors/neovim/.luarc.json
 # Globals: vim (diagnostic), use (read_globals in luacheck)
 # Runtime: LuaJIT
 ```
 
 ### Formatters & Linters (managed by Mason + guard.nvim)
 
-All tooling is centrally registered in `NeoVim/lua/config/lsp/tools.lua`:
+All tooling is centrally registered in `editors/neovim/lua/config/lsp/tools.lua`:
 - **Lua**: stylua (formatter)
 - **JS/TS/CSS/HTML/Markdown/Svelte/Vue**: prettierd (formatter), eslint_d (linter)
 - **Python**: black (formatter), flake8 (linter)
@@ -149,8 +223,8 @@ Not all files use this - it's optional. Utility modules and plugin specs typical
 
 ### Naming Conventions
 
-- **Files**: lowercase with hyphens for plugin specs (e.g., `blink-cmp.lua`,
-  `trouble-nvim.lua`), lowercase with underscores for config modules
+- **Files**: lowercase with hyphens (`blink-cmp.lua`, `trouble-nvim.lua`).
+  Single-word config modules stay single-word (`autocmds.lua`, `options.lua`).
 - **Variables/functions**: `snake_case`
 - **Module tables**: single uppercase letter (`M`, `U`, `C`) or descriptive lowercase
 - **Autocmd groups**: `PascalCase` strings (e.g., `"UserConfig"`, `"ts_ls_dedupe"`)
@@ -196,10 +270,12 @@ table and applies via `ColorScheme` autocmd. Current theme: oxocarbon.
 
 ### Non-NeoVim Configs
 
-- **Ghostty**: Plain text config file + GLSL shaders in `shaders/`
-- **Hyprland**: `.conf` files with module includes in `modules/`
-- **Tmux**: Standard `tmux.conf`
-- No special tooling required for these - they are plain config files.
+- **terminals/ghostty**: plain text config + GLSL shaders in `shaders/`
+- **desktop/hyprland**: `.conf` files with module includes in `modules/`
+- **terminals/tmux**: `tmux.conf` plus TPM-managed plugins under `plugins/`
+- **shells/fish**: `config.fish`, fisher-managed plugins in `conf.d/` and
+  `functions/`. Custom helpers (e.g. `load-secrets`) go under `functions/`.
+- No special tooling required for these; they are plain config files.
 
 ### Things to Avoid
 
