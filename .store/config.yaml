@@ -1,6 +1,4 @@
 stores:
-    Ghostty:
-        target: /home/cush/.config/ghostty
     Hyprland:
         target: /home/cush/.config/hypr
     KMonad:
@@ -19,3 +17,5 @@ stores:
         target: /home/cush/.config/tmux
     Waybar:
         target: /home/cush/.config/waybar
+    ghostty:
+        target: /home/cush/.config/ghostty
