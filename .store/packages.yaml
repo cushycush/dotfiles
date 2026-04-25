@@ -1,0 +1,203 @@
+packages:
+    base:
+        pacman:
+            - base
+            - base-devel
+            - dkms
+            - linux
+            - linux-firmware
+            - linux-headers
+            - intel-ucode
+            - sof-firmware
+            - refind
+            - ly
+            - uwsm
+            - polkit-kde-agent
+            - sudo
+            - pacman-contrib
+            - paru
+            - paru-debug
+            - yay-bin
+            - yay-bin-debug
+            - stow
+            - store
+            - store-debug
+            - stock-bin
+            - mise
+            - inetutils
+            - smartmontools
+            - socat
+            - xdg-user-dirs
+            - xdg-utils
+            - zram-generator
+            - python312
+            - python-pipx
+            - xorg-server
+            - xorg-xinit
+
+    network:
+        pacman:
+            - networkmanager
+            - network-manager-applet
+            - iwd
+            - wireless_tools
+            - wpa_supplicant
+
+    bluetooth:
+        pacman:
+            - bluez
+            - bluez-utils
+            - blueman
+
+    audio:
+        pacman:
+            - alsa-utils
+            - pipewire
+            - pipewire-alsa
+            - pipewire-jack
+            - pipewire-pulse
+            - wireplumber
+            - libpulse
+            - gst-plugin-pipewire
+            - pavucontrol
+            - playerctl
+            - easyeffects
+
+    gpu:
+        pacman:
+            - nvidia-580xx-dkms
+            - nvidia-580xx-settings
+            - libva-nvidia-driver
+
+    desktop:
+        pacman:
+            - hyprland
+            - hyprlauncher
+            - hyprlock
+            - hyprpicker
+            - hyprquickframe-git
+            - hyprshot
+            - quickshell-git
+            - waybar
+            - rofi
+            - fuzzel
+            - wofi
+            - swaync
+            - dunst
+            - mpvpaper
+            - awww
+            - gradia
+            - zenity
+            - slurp
+            - grim
+            - cliphist
+            - brightnessctl
+            - wlsunset
+            - wl-clipboard
+            - wl-clip-persist
+            - wtype
+            - gpu-screen-recorder
+            - qt5-wayland
+            - qt6-wayland
+            - qt6-imageformats
+            - qt6-tools
+            - xdg-desktop-portal-hyprland
+            - power-profiles-daemon
+            - ddcutil
+            - adw-gtk-theme
+            - dolphin
+
+    fonts:
+        pacman:
+            - noto-fonts
+            - noto-fonts-cjk
+            - noto-fonts-emoji
+            - ttf-dejavu
+            - ttf-league-gothic
+            - ttf-liberation
+            - ttf-nerd-fonts-symbols
+            - ttf-phosphor-icons
+            - ttf-roboto
+            - ttf-roboto-mono
+            - fontbase
+            - fontmanager.app
+            - matugen
+
+    terminals:
+        pacman:
+            - ghostty
+            - kitty
+            - tmux
+            - fish
+            - kmonad
+
+    dev:
+        pacman:
+            - neovim
+            - vim
+            - nano
+            - opencode
+            - zed
+            - git
+            - github-cli
+            - lazygit
+            - docker
+            - vercel
+            - tree-sitter-cli
+            - qml-language-server-bin
+            - jq
+            - fd
+            - fzf
+            - eza
+            - bat
+            - btop
+            - htop
+            - less
+            - glow
+            - tldr
+            - tre-command
+            - wget
+            - unzip
+            - zoxide
+            - imagemagick
+            - libavif
+        npm:
+            - '@anthropic-ai/sandbox-runtime'
+            - npm
+            - pnpm
+            - typescript
+            - typescript-language-server
+        go:
+            - go
+            - gofmt
+            - gopls
+            - goreleaser
+        pipx:
+            - termpdf.py
+
+    apps:
+        pacman:
+            - firefox
+            - tesseract
+            - tesseract-data-chi_sim
+            - tesseract-data-chi_tra
+            - tesseract-data-eng
+            - tesseract-data-jpn
+            - tesseract-data-kor
+            - tesseract-data-lat
+            - tesseract-data-spa
+            - zbar
+            - unixodbc
+
+    printing:
+        pacman:
+            - cups
+            - cups-pk-helper
+            - system-config-printer
+
+    flatpak:
+        pacman:
+            - flatpak
+            - flatpak-builder
+            - libayatana-appindicator
+            - webkit2gtk-4.1
