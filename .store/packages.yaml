@@ -160,6 +160,7 @@ packages:
             - unzip
             - zoxide
             - imagemagick
+            - imv
             - libavif
         npm:
             - '@anthropic-ai/sandbox-runtime'
