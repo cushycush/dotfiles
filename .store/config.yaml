@@ -1,5 +1,5 @@
 stores:
-    Shells/Fish:
+    shells/fish:
         target: /home/cush/.config/fish/
     ghostty:
         target: /home/cush/.config/ghostty
