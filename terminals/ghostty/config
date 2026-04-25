@@ -1,4 +1,4 @@
-# Default shell — launches/attaches a shared tmux session
+# Default shell — launches a fresh tmux session with shell/agent/git windows
 command = /home/cush/dotfiles/terminals/tmux/start-session.sh
 
 # Dynamic theme colors
