@@ -10,7 +10,8 @@ set -u VISUAL nvim
 set -u SUDO_EDITOR nvim
 
 alias ls='eza --icons --group-directories-first'
-alias cat='bat'
+# cat is a function in functions/cat.fish — routes images through kitten icat,
+# everything else through bat.
 alias grep='rg'
 alias cd='z'
 alias n='nvim'
