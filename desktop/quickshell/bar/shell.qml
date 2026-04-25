@@ -46,7 +46,7 @@ ShellRoot {
     Process {
         id: openSettingsProc
         command: ["/bin/sh", "-c",
-            "quickshell -p ~/dotfiles/Quickshell/settings/shell.qml ipc --any-display call settings toggle"]
+            "quickshell -p ~/dotfiles/desktop/quickshell/settings/shell.qml ipc --any-display call settings toggle"]
     }
 
     function readNotifState() {
@@ -298,11 +298,11 @@ ShellRoot {
                                 // notifications instance even when it was
                                 // launched with no attached Wayland display
                                 // (e.g. via `setsid -f` during dev reload).
-                                command: ["/bin/sh", "-c", "quickshell -p ~/dotfiles/Quickshell/notifications/shell.qml ipc --any-display call notifications toggle"]
+                                command: ["/bin/sh", "-c", "quickshell -p ~/dotfiles/desktop/quickshell/notifications/shell.qml ipc --any-display call notifications toggle"]
                             }
                             Process {
                                 id: dndToggleProc
-                                command: ["/bin/sh", "-c", "quickshell -p ~/dotfiles/Quickshell/notifications/shell.qml ipc --any-display call notifications dndToggle"]
+                                command: ["/bin/sh", "-c", "quickshell -p ~/dotfiles/desktop/quickshell/notifications/shell.qml ipc --any-display call notifications dndToggle"]
                             }
 
                             Text {
