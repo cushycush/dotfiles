@@ -1,21 +1,21 @@
 stores:
-    shells/fish:
-        target: /home/cush/.config/fish/
-    ghostty:
-        target: /home/cush/.config/ghostty
-    hyprland:
+    desktop/hyprland:
         target: /home/cush/.config/hypr
+    desktop/quickshell:
+        target: /home/cush/.config/quickshell
+    desktop/rofi:
+        target: /home/cush/.config/rofi/
+    desktop/waybar:
+        target: /home/cush/.config/waybar
+    editors/neovim:
+        target: /home/cush/.config/nvim
     kmonad:
         target: /home/cush/.config/kmonad
-    neovim:
-        target: /home/cush/.config/nvim
-    nushell:
+    shells/fish:
+        target: /home/cush/.config/fish/
+    shells/nushell:
         target: /home/cush/.config/nushell
-    quickshell:
-        target: /home/cush/.config/quickshell
-    rofi:
-        target: /home/cush/.config/rofi/
-    tmux:
+    terminals/ghostty:
+        target: /home/cush/.config/ghostty
+    terminals/tmux:
         target: /home/cush/.config/tmux
-    waybar:
-        target: /home/cush/.config/waybar
