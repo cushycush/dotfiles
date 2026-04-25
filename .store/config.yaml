@@ -1,35 +1,47 @@
 stores:
-    desktop/hyprland:
-        target: /home/cush/.config/hypr
-    desktop/quickshell:
-        target: /home/cush/.config/quickshell
-    desktop/rofi:
-        target: /home/cush/.config/rofi/
-    desktop/waybar:
-        target: /home/cush/.config/waybar
-    editors/neovim:
-        target: /home/cush/.config/nvim
-    fonts/fontconfig:
-        target: ~/.config/fontconfig
+    desktop:
+        hyprland:
+            target: /home/cush/.config/hypr
+        quickshell:
+            target: /home/cush/.config/quickshell
+        rofi:
+            target: /home/cush/.config/rofi/
+        waybar:
+            target: /home/cush/.config/waybar
+
+    editors:
+        neovim:
+            target: /home/cush/.config/nvim
+
+    fonts:
+        fontconfig:
+            target: ~/.config/fontconfig
+
+    shells:
+        fish:
+            target: /home/cush/.config/fish/
+        nushell:
+            target: /home/cush/.config/nushell
+
+    terminals:
+        ghostty:
+            target: /home/cush/.config/ghostty
+        tmux:
+            target: /home/cush/.config/tmux
+
+    tools:
+        gh:
+            target: ~/.config/gh
+            files:
+                - config.yml
+        glow:
+            target: ~/.config/glow
+        htop:
+            target: ~/.config/htop
+        lazygit:
+            target: ~/.config/lazygit
+        mise:
+            target: ~/.config/mise
+
     kmonad:
         target: /home/cush/.config/kmonad
-    shells/fish:
-        target: /home/cush/.config/fish/
-    shells/nushell:
-        target: /home/cush/.config/nushell
-    terminals/ghostty:
-        target: /home/cush/.config/ghostty
-    terminals/tmux:
-        target: /home/cush/.config/tmux
-    tools/gh:
-        target: ~/.config/gh
-        files:
-            - config.yml
-    tools/glow:
-        target: ~/.config/glow
-    tools/htop:
-        target: ~/.config/htop
-    tools/lazygit:
-        target: ~/.config/lazygit
-    tools/mise:
-        target: ~/.config/mise
