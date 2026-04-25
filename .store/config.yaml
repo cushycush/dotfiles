@@ -9,6 +9,8 @@ stores:
         target: /home/cush/.config/waybar
     editors/neovim:
         target: /home/cush/.config/nvim
+    fonts/fontconfig:
+        target: ~/.config/fontconfig
     kmonad:
         target: /home/cush/.config/kmonad
     shells/fish:
@@ -19,3 +21,15 @@ stores:
         target: /home/cush/.config/ghostty
     terminals/tmux:
         target: /home/cush/.config/tmux
+    tools/gh:
+        target: ~/.config/gh
+        files:
+            - config.yml
+    tools/glow:
+        target: ~/.config/glow
+    tools/htop:
+        target: ~/.config/htop
+    tools/lazygit:
+        target: ~/.config/lazygit
+    tools/mise:
+        target: ~/.config/mise
