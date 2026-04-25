@@ -1,21 +1,21 @@
 stores:
-    Hyprland:
-        target: /home/cush/.config/hypr
-    KMonad:
-        target: /home/cush/.config/kmonad
-    NeoVim:
-        target: /home/cush/.config/nvim
-    Nushell:
-        target: /home/cush/.config/nushell
-    Quickshell:
-        target: /home/cush/.config/quickshell
-    Rofi:
-        target: /home/cush/.config/rofi/
     Shells/Fish:
         target: /home/cush/.config/fish/
-    Tmux:
-        target: /home/cush/.config/tmux
-    Waybar:
-        target: /home/cush/.config/waybar
     ghostty:
         target: /home/cush/.config/ghostty
+    hyprland:
+        target: /home/cush/.config/hypr
+    kmonad:
+        target: /home/cush/.config/kmonad
+    neovim:
+        target: /home/cush/.config/nvim
+    nushell:
+        target: /home/cush/.config/nushell
+    quickshell:
+        target: /home/cush/.config/quickshell
+    rofi:
+        target: /home/cush/.config/rofi/
+    tmux:
+        target: /home/cush/.config/tmux
+    waybar:
+        target: /home/cush/.config/waybar
