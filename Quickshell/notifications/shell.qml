@@ -229,6 +229,11 @@ ShellRoot {
     PanelWindow {
         id: toastPanel
         color: "transparent"
+        // Layer-shell surfaces grab input across their whole rect even when
+        // visually empty, so collapse the window when there are no toasts.
+        // Otherwise this 480×900 overlay sits in the top-right of the
+        // monitor and silently eats clicks on Firefox chrome, terminals, etc.
+        visible: server.trackedNotifications.values.length > 0
         implicitWidth: 480
         implicitHeight: 900
 
