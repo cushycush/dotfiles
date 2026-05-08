@@ -55,8 +55,8 @@ function _step
 end
 
 function shot_desktop
-    if _step desktop "Compose a clean desktop on DP-3. Show your wallpaper, the bar, maybe a focused window or two. Cursor will be hidden. Hit enter to capture."
-        _grab_full desktop -o DP-3 -c
+    if _step desktop "Compose a clean desktop on HDMI-A-1. Show your wallpaper, the bar, maybe a focused window or two. Cursor will be hidden. Hit enter to capture."
+        _grab_full desktop -o HDMI-A-1 -c
     end
 end
 

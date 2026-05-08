@@ -50,9 +50,12 @@ keybind = super+control+shift+alt+arrow_right=resize_split:right,100
 # Slowdown mouse scrolling
 mouse-scroll-multiplier = 0.95
 
-# Cursor Shaders
-custom-shader = shaders/cursor_smear.glsl
-custom-shader = shaders/ripple_cursor.glsl
+# Cursor Shaders — disabled. Both used iTime, which forces a full-window
+# render every vsync regardless of whether anything changed; with the
+# claude TUI idle, that was the bulk of the terminal's CPU. Re-add either
+# line to bring the effect back.
+# custom-shader = shaders/cursor_smear.glsl
+# custom-shader = shaders/ripple_cursor.glsl
 
 # Fix general slowness on hyprland (https://github.com/ghostty-org/ghostty/discussions/3224)
 async-backend = epoll

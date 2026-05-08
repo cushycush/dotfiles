@@ -92,34 +92,27 @@ return {
 
 	for server, server_config in pairs(tools.servers) do
 		local base_config = vim.lsp.config[server]
+		local cfg = vim.tbl_deep_extend("force", {}, server_config)
+		cfg.mason = nil
+		cfg.on_attach = on_attach
+
 		if base_config and base_config.name then
-			local cfg = vim.tbl_deep_extend("force", {}, server_config)
-			cfg.mason = nil
-			cfg.on_attach = on_attach
 			vim.lsp.config[server] = vim.tbl_deep_extend("force", base_config, cfg)
+		else
+			-- Custom server without an nvim-lspconfig default; tools.lua is
+			-- the full config.
+			cfg.name = cfg.name or server
+			vim.lsp.config[server] = cfg
 		end
 
 		if server_config.mason ~= false then
 			table.insert(enabled_servers, server)
-		elseif base_config and base_config.cmd and base_config.cmd[1] and vim.fn.executable(base_config.cmd[1]) == 1 then
-			table.insert(enabled_servers, server)
+		else
+			local cmd = vim.lsp.config[server].cmd
+			if cmd and cmd[1] and vim.fn.executable(cmd[1]) == 1 then
+				table.insert(enabled_servers, server)
+			end
 		end
-	end
-
-	-- ============================================================================
-	-- Custom LSP Configurations (servers not in nvim-lspconfig)
-	-- ============================================================================
-
-	-- QML Language Server
-	if vim.fn.executable("qml-language-server") == 1 then
-		vim.lsp.config.qml = {
-			name = "qml",
-			cmd = { "qml-language-server" },
-			filetypes = { "qml" },
-			root_markers = { ".git" },
-			on_attach = on_attach,
-		}
-		table.insert(enabled_servers, "qml")
 	end
 
 	vim.lsp.enable(enabled_servers)

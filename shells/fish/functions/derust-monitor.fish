@@ -1,6 +1,6 @@
 function derust-monitor --description "Display a white screen fullscreen on a monitor to clear NanoIPS image retention"
-    set -l img ~/dotfiles/assets/white-5120x2160.png
-    set -l monitor DP-3
+    set -l img ~/dotfiles/assets/white-3840x2160.png
+    set -l monitor HDMI-A-1
     set -l duration 1800   # 30 min default
 
     # usage: derust-monitor [monitor] [duration_seconds]
