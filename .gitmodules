@@ -1,3 +1,6 @@
 [submodule "terminals/tmux/plugins/tpm"]
 	path = terminals/tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
+[submodule "desktop/quickshell/HyprQuickFrame"]
+	path = desktop/quickshell/HyprQuickFrame
+	url = https://github.com/Ronin-CK/HyprQuickFrame
