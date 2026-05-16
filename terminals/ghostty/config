@@ -30,6 +30,14 @@ resize-overlay = never
 gtk-toolbar-style = flat
 background-opacity = 1.0
 
+# Disable GTK single-instance. With this set to detect (the default),
+# launching ghostty from a second compositor on a different TTY hands
+# the request to the already-running instance on the first compositor,
+# so the new "window" pops up on the wrong session. Forcing each
+# invocation to spawn its own process keeps Drift and Hyprland on
+# their own TTYs honest.
+gtk-single-instance = false
+
 # Cursor styling
 cursor-style = "block"
 cursor-style-blink = false
