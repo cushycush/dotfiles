@@ -1,5 +1,7 @@
 if status is-interactive
   fish_vi_key_bindings
+  bind -M insert  \ev fish_clipboard_paste
+  bind -M default \ev fish_clipboard_paste
   /usr/sbin/mise activate fish | source
   zoxide init fish | source
 end
@@ -15,6 +17,9 @@ alias ls='eza --icons --group-directories-first'
 alias grep='rg'
 alias cd='z'
 alias n='nvim'
+
+# abbreviations
+abbr -a god 'godot --fullscreen'
 
 # bun
 set --export BUN_INSTALL "$HOME/.bun"
