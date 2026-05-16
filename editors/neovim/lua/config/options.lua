@@ -34,7 +34,10 @@ vim.opt.incsearch = true
 
 -- Visual Settings
 vim.opt.termguicolors = true
-vim.opt.signcolumn = "yes:2"
+-- yes:3 reserves three slots so gitsigns + diagnostic + lspsaga
+-- code-action lightbulb can coexist on one line without resizing
+-- the gutter as the cursor moves.
+vim.opt.signcolumn = "yes:3"
 vim.opt.colorcolumn = "100"
 vim.opt.showmatch = true
 vim.opt.matchtime = 2
