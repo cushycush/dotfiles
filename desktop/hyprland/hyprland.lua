@@ -291,11 +291,14 @@ hl.bind(
 )
 hl.bind(mainMod .. " + CTRL + L", hl.dsp.exec_cmd("hyprlock"))
 
--- Screenshots to clipboard (A for "area"; mod-only = region, +SHIFT = whole
--- monitor, +CTRL = active window). Pipes grim into wl-copy via scripts/screenshot.sh.
+-- Screenshots (A for "area"; mod-only = region, +SHIFT = whole monitor,
+-- +CTRL = active window). Default goes to the clipboard; +ALT writes a PNG
+-- to ~/media/screenshots/ instead. Implemented via scripts/screenshot.sh.
 hl.bind(mainMod .. " + A", hl.dsp.exec_cmd("~/dotfiles/desktop/hyprland/scripts/screenshot.sh region"))
 hl.bind(mainMod .. " + SHIFT + A", hl.dsp.exec_cmd("~/dotfiles/desktop/hyprland/scripts/screenshot.sh output"))
 hl.bind(mainMod .. " + CTRL + A", hl.dsp.exec_cmd("~/dotfiles/desktop/hyprland/scripts/screenshot.sh window"))
+hl.bind(mainMod .. " + ALT + A", hl.dsp.exec_cmd("~/dotfiles/desktop/hyprland/scripts/screenshot.sh region file"))
+hl.bind(mainMod .. " + SHIFT + ALT + A", hl.dsp.exec_cmd("~/dotfiles/desktop/hyprland/scripts/screenshot.sh output file"))
 
 -- Focus movement (vim keys)
 hl.bind(mainMod .. " + H", hl.dsp.focus({ direction = "left" }))
